@@ -11,6 +11,7 @@
     "@context": "http://schema.org",
     "@type": "Person",
     "name": "Arseny Gabdullin",
+    "image": "https://avatars.githubusercontent.com/u/1730172",
     "url": "https://arsgab.io",
     "jobTitle": "Software Engineer",
     "alumniOf": "Saint Petersburg State University",
@@ -23,11 +24,59 @@
     ]
   }
   </script>
+  <style type="text/css">
+    .portrait {
+      width: 100px;
+      height: 100px;
+      border-radius: 100%;
+      overflow: hidden;
+      margin: 0 0 1.2em -0.6em;
+    }
+    ul.links {
+      margin: 0;
+      padding: 0;
+      list-style-type: none;
+    }
+    ul.links li {
+      display: inline;
+    }
+    ul.links li:not(:last-child)::after {
+      content: " •";
+      opacity: .25;
+    }
+    ul.links a:hover {
+      opacity: .75;
+    }
+    a[href*="linkedin.com"] {
+      color: #006192;
+    }
+    a[href*="github.com"] {
+      color: #4078c0;
+    }
+    a[href*="instagram.com"] {
+      color: #c13584;
+    }
+    a[href*="strava.com"] {
+      color: #fc4c02;
+    }
+  </style>
 </head>
 <body>
-  <h1>Arseny Gabdullin</h1>
-  <h2>Python developer & IT consultant</h2>
-  <p>Drop me a line: <a href="mailto:mail@arsgab.io">mail@arsgab.io</a></p>
-  <footer><small>© Arseny Gabdullin, 2023</small></footer>
+  <header>
+    <figure class="portrait"><img src="https://avatars.githubusercontent.com/u/1730172"></figure>
+    <h1>Arseny Gabdullin</h1>
+    <p>Python developer & IT consultant</p>
+  </header>
+  <main>
+    <article>
+      <p>Drop me a line <small>→</small> <a href="mailto:mail@arsgab.io">mail@arsgab.io</a></p>
+      <ul class="links">
+        <li><a href="https://www.linkedin.com/in/arsgab/" target="_blank" rel="noopener">LinkedIn</a></li>
+        <li><a href="https://github.com/arsgab" target="_blank" rel="noopener">GitHub</a></li>
+        <li><a href="https://instagram.com/arseny.ga/" target="_blank" rel="noopener">Instagram</a></li>
+        <li><a href="https://www.strava.com/athletes/40303994" target="_blank" rel="noopener">Strava</a></li>
+      </ul>
+    </article>
+  </main>
 </html>
 
