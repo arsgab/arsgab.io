@@ -4,7 +4,7 @@
   "description": "Company website",
   "main": "index.js",
   "scripts": {
-    "build": "postcss assets/style.css --dir=. --env=production"
+    "build": "postcss assets/style.light.css assets/style.dark.css --dir=build --env=production"
   },
   "repository": {
     "type": "git",
