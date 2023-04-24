@@ -54,3 +54,7 @@ a[href*="facebook.com"] {
 a[href*="strava.com"] {
   color: #fc4c02;
 }
+
+a[href*="t.me"] {
+  color: #0088cc;
+}
