@@ -16,8 +16,8 @@
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="apple-touch-icon" href="/favicons/apple-touch-icon.png">
   <link rel="manifest" href="/manifest.webmanifest">
-  <link rel="stylesheet" href="https://unpkg.com/awsm.css/dist/awsm_theme_black.min.css" media="(prefers-color-scheme: dark)">
-  <link rel="stylesheet" href="https://unpkg.com/awsm.css/dist/awsm_theme_white.min.css" media="(prefers-color-scheme: no-preference), (prefers-color-scheme: light)">
+  <!-- <link rel="stylesheet" href="https://unpkg.com/awsm.css/dist/awsm_theme_black.min.css" media="(prefers-color-scheme: dark)"> -->
+  <link rel="stylesheet" href="style.css?v=1" media="(prefers-color-scheme: no-preference), (prefers-color-scheme: light)">
   <script type="application/ld+json">
   {
     "@context": "http://schema.org",
@@ -39,58 +39,13 @@
     ]
   }
   </script>
-  <style type="text/css">
-    [hidden] {
-      display: none !important;
-    }
-    html {
-      max-width: 40rem;
-      margin: 0 auto;
-    }
-    .portrait {
-      width: 100px;
-      height: 100px;
-      border-radius: 100%;
-      overflow: hidden;
-      margin: 0 0 1.2em -0.6em;
-    }
-    ul.links {
-      margin: 0;
-      padding: 0;
-      list-style-type: none;
-    }
-    ul.links li {
-      display: inline;
-    }
-    ul.links li:not(:last-child)::after {
-      content: " •";
-      opacity: .25;
-    }
-    ul.links a:hover {
-      opacity: .75;
-    }
-    a[href*="linkedin.com"] {
-      color: #006192;
-    }
-    a[href*="github.com"] {
-      color: #4078c0;
-    }
-    a[href*="instagram.com"] {
-      color: #c13584;
-    }
-    a[href*="facebook.com"] {
-      color: #1877f2;
-    }
-    a[href*="strava.com"] {
-      color: #fc4c02;
-    }
-  </style>
+  <script async defer data-website-id="d0111510-e9b4-48fc-8a4c-3e8c3173e53e" data-do-not-track="true" src="https://stat.arsgab.io/stonks.js"></script>
 </head>
 <body>
-  <header>
-    <figure class="portrait"><img src="https://img.arsgab.io/hdjGEBpQs9g6LBvWKh04o9roFBKxAqIn0d0P9D7iGuE/format:webp/plain/https://arsgab.io/images/me.jpg" width="100" height="100" alt="Arseny's photo"></figure>
+  <header role="banner">
+    <figure class="portrait"><img src="images/me.webp" width="100" height="100" alt="Arseny's photo"></figure>
     <h1>Arseny Gabdullin</h1>
-    <p>Python developer & software architect</p>
+    <p>Python developer & software architect.<br>Based in Belgrade, Serbia</p>
   </header>
   <main>
     <article>
@@ -99,12 +54,13 @@
         <li><a class="umami--click--linkedin" href="https://www.linkedin.com/in/arsgab/" target="_blank" rel="noopener">LinkedIn</a></li>
         <li><a class="umami--click--github" href="https://github.com/arsgab" target="_blank" rel="noopener">GitHub</a></li>
         <li><a class="umami--click--instagram" href="https://instagram.com/arseny.ga/" target="_blank" rel="noopener">Instagram</a></li>
-        <li><a class="umami--click--facebook" href="https://www.facebook.com/arsgab" target="_blank" rel="noopener">Facebook</a></li>
         <li hidden><a rel="me" href="https://mastodon.online/@arsgab">Mastodon</a></li>
         <li><a class="umami--click--strava" href="https://www.strava.com/athletes/40303994" target="_blank" rel="noopener">Strava</a></li>
       </ul>
     </article>
   </main>
-  <script async defer data-website-id="d0111510-e9b4-48fc-8a4c-3e8c3173e53e" data-do-not-track="true" src="https://stat.arsgab.io/stonks.js"></script>
+  <footer role="contentinfo">
+    <small>© Suvlehim Takac d.o.o. Beograd, Srbija</small>
+  </footer>
 </body>
 </html>
