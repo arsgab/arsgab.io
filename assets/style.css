@@ -5,6 +5,8 @@
 html {
   max-width: 40rem;
   margin: 0 auto;
+  background-color: var(--bg-color, white);
+  color: var(--text-color, black);
 }
 
 .portrait {
