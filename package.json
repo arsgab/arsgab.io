@@ -20,7 +20,7 @@
     "terser": "^5.17.7"
   },
   "scripts": {
-    "build": "npm run build_styles",
+    "build": "npm run build_styles && npm run build_scripts",
     "build_styles": "postcss assets/styles/style.css --dir=build --env=production",
     "build_scripts": "terser --compress ecma=2016,drop_console=true --mangle toplevel --output build/script.js -- assets/scripts/*.js",
     "watch": "postcss assets/styles/style.css --dir=build --env=development --watch --verbose",
