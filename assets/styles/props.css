@@ -1,0 +1,21 @@
+:root {
+  --bg-color-base: 248, 252, 249;
+  --bg-color: rgb(var(--bg-color-base));
+  --text-color-base: 15 15 15;
+  --text-color: rgb(var(--text-color-base));
+  --link-color: blue;
+  --link-hover-color: tomato;
+  --link-visited-color: purple;
+  --font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", Oxygen, Cantarell, sans-serif;
+  --font-family-accent: "PT Serif", Georgia, Times, sans-serif;
+  --font-family-mono: "Fira Code", Fira, Monaco, Consolas, Menlo, "Courier New", Courier, monospace;
+  --container-max-width: 1000px;
+  --gutter: 20px;
+  --roundness-radius: 3px;
+}
+
+@custom-media --mobile-xs (max-width: 360px);
+
+@custom-media --mobile (max-width: 767px);
+
+@custom-media --tablet (max-width: var(--container-max-width));

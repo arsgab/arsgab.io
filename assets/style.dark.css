@@ -1,7 +1,0 @@
-@import "vendor/awsm_theme_black.css";
-@import "style.css";
-
-html {
-  --bg-color: #1a1a1a;
-  --text-color: #F8FCF9;
-}

@@ -1,0 +1,121 @@
+[data-page-home] {
+  & header {
+    margin: 2rem 0 3rem 0;
+    position: relative;
+
+    @media (--mobile) {
+      margin: 1rem 0 2rem 0;
+    }
+
+    & h1 {
+      font-size: 4em;
+      font-weight: 900;
+      line-height: 1;
+      text-indent: 60px;
+      color: rgb(var(--text-color-base) / .9);
+      margin-bottom: 1rem;
+      position: relative;
+      left: -.1em;
+    }
+
+    & p[data-prop=occupation] {
+      font-size: 1.5em;
+      line-height: 1;
+    }
+
+    & p[data-prop=location] {
+      color: rgb(var(--text-color-base) / .75);
+    }
+
+    & figure {
+      position: absolute;
+      top: .8ex;
+      left: -5px;
+
+      & img {
+        border-radius: 50%;
+        width: 60px;
+      }
+    }
+  }
+
+  & p {
+    margin-bottom: .5rem;
+  }
+
+  & ul {
+    margin: 3rem 0;
+    font-size: 1.2em;
+
+    @media (--mobile) {
+      margin: 2rem 0;
+    }
+
+    & li {
+      display: inline;
+      position: relative;
+      padding-right: 1.5rem;
+      white-space: nowrap;
+
+      @media (--mobile) {
+        padding-right: 1rem;
+      }
+    }
+
+    & li:not(:last-child)::after {
+      content: "✸";
+      font-size: .75em;
+      position: absolute;
+      opacity: .5;
+      right: .3em;
+      bottom: 0;
+
+      @media (--mobile) {
+        right: 0;
+      }
+    }
+
+    & a {
+      text-decoration: none;
+
+      &:hover {
+        opacity: .75;
+      }
+    }
+  }
+
+  & a {
+    &[href*="linkedin.com"] {
+      color: #006192;
+    }
+
+    &[href*="github.com"] {
+      color: #4078c0;
+    }
+
+    &[href*="instagram.com"] {
+      color: #c13584;
+    }
+
+    &[href*="facebook.com"] {
+      color: #1877f2;
+    }
+
+    &[href*="strava.com"] {
+      color: #fc4c02;
+    }
+
+    &[href*="t.me"] {
+      color: #0088cc;
+    }
+  }
+}
+
+footer[role=contentinfo] {
+  margin: 6rem 0;
+
+  & [data-prop=copyright] {
+    font-size: .75em;
+    color: rgb(var(--text-color-base) / .4);
+  }
+}

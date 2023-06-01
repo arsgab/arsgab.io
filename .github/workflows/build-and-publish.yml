@@ -33,7 +33,7 @@ jobs:
       - name: Install Node requirements
         run: npm ci
       - name: Build static assets
-        run: npm run build
+        run: make static
 
       # Publish
       - name: Setup Pages

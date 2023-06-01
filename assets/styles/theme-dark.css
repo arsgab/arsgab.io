@@ -1,0 +1,16 @@
+html[data-color-theme=dark] {
+  --bg-color: #222;
+  --text-color-base: 255 255 255;
+  --link-color: orange;
+  --link-visited-color: grey;
+
+  & article header {
+    filter: brightness(.8);
+  }
+
+  & article [data-prop=content] {
+    & figure img {
+      filter: brightness(.9);
+    }
+  }
+}
