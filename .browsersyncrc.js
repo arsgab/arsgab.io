@@ -1,6 +1,6 @@
 module.exports = {
-  server: '.',
-  files: ['*.html', './**/*.js', './build/**/*.css'],
+  proxy: 'localhost:8000',
+  files: ['dist/static/*.css', 'dist/*.html'],
   watchEvents: ['change', 'add', 'unlink'],
   open: 'local',
   reloadOnRestart: true,

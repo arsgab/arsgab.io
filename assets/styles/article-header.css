@@ -1,0 +1,122 @@
+[data-nav-header] {
+  position: absolute;
+  width: 100%;
+  z-index: 99;
+  font-weight: 600;
+
+  & nav {
+    font-size: 0;
+  }
+
+  & a {
+    position: relative;
+    display: inline-block;
+    padding: 1rem;
+    text-decoration: none;
+    font-size: 1rem;
+    white-space: nowrap;
+    opacity: .6;
+    color: var(--text-color);
+
+    &:hover {
+      opacity: .8;
+    }
+
+    &[rel=home] {
+      font-weight: 900;
+      margin-left: -1rem;
+
+      &::after {
+        content: "/";
+        position: absolute;
+        font-weight: 200;
+        margin-left: .8rem;
+      }
+
+      &:hover::after {
+        opacity: .75;
+      }
+    }
+  }
+}
+
+article {
+  & header {
+    background-color: var(--cover-bg-color, #666);
+    color: var(--text-color);
+    padding-top: 4rem;
+    margin-bottom: 2rem;
+
+    & h1 {
+      font-size: 4em;
+      font-weight: 900;
+      line-height: 1;
+      margin-bottom: 1rem;
+
+      & i {
+        font-family: var(--font-family-accent);
+        font-weight: normal;
+        opacity: .8;
+        font-size: .9em;
+
+        @media (--mobile) {
+          display: block;
+          line-height: 1;
+        }
+      }
+    }
+
+    & [data-prop=subtitle] {
+      font-size: 1.5em;
+
+      @media (--mobile) {
+        line-height: 1.2;
+      }
+    }
+
+    & [data-prop=date-published] {
+      opacity: .8;
+      font-size: .8em;
+      white-space: nowrap;
+    }
+
+    & [data-article-cover] {
+      position: relative;
+      padding: 1rem 0;
+
+      @media (--mobile) {
+        padding: .5rem 0;
+      }
+    }
+
+    & picture {
+      position: relative;
+      min-height: var(--cover-height);
+    }
+
+    & img {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      height: 100%;
+      width: auto;
+      filter: invert(1) grayscale(1) contrast(2);
+      mask-image: linear-gradient(-30deg, black, ease-in-out, rgba(0, 0, 0, .2));
+      mix-blend-mode: screen;
+    }
+  }
+
+  & [data-prop=lead] {
+    font-family: var(--font-family-accent);
+    font-size: 2.2em;
+    line-height: .8;
+    margin-bottom: 3rem;
+    font-style: italic;
+    text-indent: 2rem;
+
+    @media (--mobile) {
+      line-height: 1;
+      text-indent: 1rem;
+    }
+  }
+}

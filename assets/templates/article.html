@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% set body_attrs = ['data-page-article'] %}
+{% set cover = remap(article.cover) %}
+{% set cover_height = cover.image_height or 300 %}
+{% set cover_picture = picture(
+  cover.image,
+  height=cover_height, ratio=1.0, loading='eager',
+  gravity='so', rt='fill-down'
+) %}
+
+{% block header %}
+  <header role="banner" data-nav-header style="--text-color: {{ cover.text_color }}">
+    <nav data-container>
+      <a href="/" rel="home">{{ SITENAME }}</a>
+      <a href="/articles">Articles</a>
+    </nav>
+    {% include "partials/color-theme-switch.html" %}
+  </header>
+{% endblock header %}
+
+{% block content %}
+  <article>
+    <header style="--cover-bg-color: {{ cover.bg_color }}; --text-color: {{ cover.text_color }}">
+      <div data-container>
+        <h1 data-prop="title">
+          {{ article.title }}{% if article.title_label %}: <i>{{ article.title_label }}</i>{% endif %}
+        </h1>
+        {% if article.subtitle %}<p data-prop="subtitle">{{ article.subtitle }}</p>{% endif %}
+        <time datetime="{{ article.date|strftime('%Y-%m-%d') }}" data-prop="date-published">
+          {{ article.date|strftime('%B %-d, %Y') }}
+        </time>
+      </div>
+      <div data-article-cover style="--cover-height: {{ cover_height }}px">
+        {{ cover_picture }}
+      </div>
+    </header>
+    {% if article.lead %}<p data-prop="lead" data-container>{{ article.lead }}</p>{% endif %}
+    <div data-prop="content" data-container>
+      {{ article.content }}
+    </div>
+  </article>
+{% endblock %}

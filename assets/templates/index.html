@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% set body_attrs = ['data-container', 'data-page-home'] %}
+
+{% block scripts %}
+<script type="application/ld+json">{{ MAIN_JSON_LD|tojson }}</script>
+{% endblock %}
+
+{% block header %}
+<header role="banner">
+  <h1>Arseny<br>Gabdullin</h1>
+  <figure class="portrait">
+    <img src="{{ static('me.webp') }}" width="100" height="100" alt="Arseny's photo">
+  </figure>
+  <p data-prop="occupation">Python developer & software architect</p>
+  <p data-prop="location">Based in Belgrade, Serbia</p>
+</header>
+{% endblock header %}
+
+{% block content %}
+<article>
+  <p data-prop="bio">Running, cycling, traveling—and <a href="https://photos.arsgab.io"
+                                                        data-umami-event="click-photosite">making photos</a> of it.</p>
+  <p>Drop me a line <small>→</small> <a href="mailto:mail@arsgab.io">mail@arsgab.io</a></p>
+  <ul data-social-links>
+    <li><a data-umami-event="click-linkedin" href="https://www.linkedin.com/in/arsgab/" target="_blank" rel="noopener">LinkedIn</a>
+    </li>
+    <li><a data-umami-event="click-github" href="https://github.com/arsgab" target="_blank" rel="noopener">GitHub</a>
+    </li>
+    <li><a data-umami-event="click-instagram" href="https://instagram.com/arseny.ga/" target="_blank" rel="noopener">Instagram</a>
+    </li>
+    <li hidden><a rel="me" href="https://mastodon.online/@arsgab">Mastodon</a></li>
+    <li><a data-umami-event="click-strava" href="https://www.strava.com/athletes/arsgab" target="_blank" rel="noopener">Strava</a>
+    </li>
+    <li><a data-umami-event="click-telegram" href="https://t.me/+A2NIRdxMDm8wYWFi" target="_blank" rel="noopener">Telegram
+      channel</a> (in Russian)
+    </li>
+  </ul>
+</article>
+{% endblock %}
+
+{% block footer %}
+<footer role="contentinfo">
+  <small data-prop="copyright">© Suvlehim Takac d.o.o. Beograd, Srbija</small>
+</footer>
+{% endblock %}
