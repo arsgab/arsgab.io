@@ -1,7 +1,14 @@
 from os.path import splitext
 from xml.etree.ElementTree import Element, fromstring as xml_from_string
 
-from utils import Shortcode, ShortcodeProcessor, StrEnum, get_media_url, render_template_partial
+from utils import (
+    Shortcode,
+    ShortcodeProcessor,
+    StrEnum,
+    get_media_url,
+    get_processed_media_url,
+    render_template_partial,
+)
 
 
 class Screencast(Shortcode):
@@ -20,6 +27,7 @@ class Screencast(Shortcode):
         eager = self.attrs.get('lazy') == 'false' or 'eager' in self.attrs
         return {
             'src': src,
+            'poster': get_processed_media_url(f'{src}.jpg', q=60),
             'sources': [
                 {'type': 'video/webm', 'src': get_media_url(f'{src}.webm')},
                 {'type': 'video/mp4', 'src': get_media_url(f'{src}.mp4')},
