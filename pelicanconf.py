@@ -50,7 +50,7 @@ STATIC_URL = f'/{THEME_STATIC_DIR}/'
 INLINE_SCRIPTS = env.get('INLINE_SCRIPTS') == 'true'
 
 # Processors/renderers setup
-_PROCESSORS = ['picture', 'screencast', 'heading']
+_PROCESSORS = ['picture', 'screencast', 'heading', 'typography']
 MARKDOWN = {
     'extension_configs': {
         'markdown.extensions.meta': {},

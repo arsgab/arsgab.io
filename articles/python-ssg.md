@@ -1,8 +1,8 @@
 ---
-title: Building statically generated photo site
+title: Building statically generated photo site with Python
 title_label: how-to
 subtitle: And deploying it via GitHub Actions
-lead: For years, I was mostly dissatisfied with a process of publishing content in the internet (well, among many other internet-related things).
+lead: For years, I was mostly dissatisfied with a process of publishing content in the internet (well, along with many other internet-related things).
 slug: python-ssg
 date: 2023-06-01
 cover:
@@ -16,14 +16,16 @@ footer:
     text: Cover image by <cite>Gerd Arntz</cite>
 ---
 
-Basically you have two options to do this: to use some ready content platform (and to depend on its vendor) or to setup
+Basically you have two options to do this: to use some established content platform (and to depend on its vendor) or to setup
 your own (and to handle all infrastructure complexity).
 
 ## [#goals] Primary goals
 
 - to build simple publishing platform,
 - DX as internal priority,
-- client performance as a "product" metric (aka "Green PageSpeed/Lightroom")
+- client performance as a "product" metric (aka "Green PageSpeed/Lighthouse")
+
+[screencast src="ssg/screencast" bordered]
 
 ## [#engine] Chosing SSG engine
 

@@ -24,7 +24,7 @@ class HeadingIdProcessor(Treeprocessor):
             idx = match_groups['idx']
             heading.text = match_groups['text'].lstrip() + ' '
             heading.attrib.update({'id': idx})
-            anchor = f'<a href="#{idx}">{self.ANCHOR_SYMBOL}</a>'
+            anchor = f'<a href="#{idx}" tabindex="-1">{self.ANCHOR_SYMBOL}</a>'
             heading.append(xml_from_string(anchor))
 
 

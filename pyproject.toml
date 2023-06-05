@@ -12,6 +12,7 @@ pelican = {extras = ["markdown"], version = "^4.8.0"}
 python-dotenv = "^1.0.0"
 flake8 = "^6.0.0"
 invoke = "^2.1.1"
+typus = "0.2.2"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.3.0"
