@@ -29,7 +29,10 @@ function initColorTheme() {
   };
   themes.forEach(theme => {
     theme.checked = theme.value === savedThemeValue;
-    theme.onchange = () => setColorTheme(theme.value) && _saveColorThemeValue(theme.value);
+    theme.onchange = () => {
+      setColorTheme(theme.value);
+      _saveColorThemeValue(theme.value);
+    };
   });
 }
 
