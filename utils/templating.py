@@ -1,10 +1,8 @@
-from random import shuffle as random_shuffle
-from typing import Iterable, Iterator, NamedTuple
+from typing import NamedTuple
 
 from jinja2 import pass_context
 from jinja2.filters import do_mark_safe
 from jinja2.runtime import Context
-from pelican.contents import Article
 
 from markup import renderer_ref
 from pelicanconf import DEFAULT_OG_IMAGE, SITEDESC, SITENAME
@@ -21,6 +19,10 @@ OG_IMAGE_PROCESSING_PARAMS = {
     'rt': 'fill',
     'q': 75,
 }
+NAVIGATION = [
+    ('/', SITENAME, {'rel': 'home'}),
+    ('/articles', 'Articles', {}),
+]
 
 
 def render_template(template_name: str, ctx: dict = None) -> str:
@@ -84,16 +86,5 @@ def render_page_metadata(ctx: Context) -> str:
 
 
 @pass_context
-def get_articles_colors_list(ctx: Context, shuffle: bool = False) -> list[str]:
-    articles = ctx.get('articles') or ()
-    colors = list(set(extract_all_articles_colors(articles)))
-    if shuffle:
-        random_shuffle(colors)
-    return colors
-
-
-def extract_all_articles_colors(articles: Iterable[Article]) -> Iterator[str]:
-    for article in articles:
-        color = article.metadata.get('color')
-        if color:
-            yield color.lower()
+def render_page_nav_header(ctx: Context, text_color: str | None = None) -> str:
+    return render_template_partial('nav-header', {'text_color': text_color, 'nav': NAVIGATION})

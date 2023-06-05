@@ -1,0 +1,8 @@
+<header role="banner" data-nav-header style="--text-color: {{ text_color or 'inherit' }}">
+  <nav data-container>
+  {% for href, name, attrs in nav %}
+    <a href="{{ href }}" {{ attrs|xmlattr }}>{{ name }}</a>
+  {% endfor %}
+  </nav>
+  {% include "partials/color-theme-switch.html" %}
+</header>

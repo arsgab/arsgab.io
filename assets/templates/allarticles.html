@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block header %}{{ nav_header() }}{% endblock header %}
+
+{% block content %}
+<h1 data-visually-hidden="true">All articles</h1>
+<ul data-container>
+  {% for article in articles %}
+  {% set cover = remap(article.cover) %}
+  <li data-content-card>
+    <article data-content-card-body style="--bg-color: {{ cover.bg_color }}; --text-color: {{ cover.text_color }}">
+      <h2><a href="{{ article.url }}">{{ article.title }}</a></h2>
+      <time datetime="{{ article.date|strftime('%Y-%m-%d') }}">{{ article.date|strftime('%B %-d, %Y') }}</time>
+    </article>
+  </li>
+  {% endfor %}
+</ul>
+{% endblock %}

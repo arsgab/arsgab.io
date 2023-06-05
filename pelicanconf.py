@@ -18,13 +18,14 @@ DEFAULT_OG_IMAGE = env.get('DEFAULT_OG_IMAGE') or 'share.jpeg'
 DEFAULT_DATE = 'fs'
 
 # Build setup
-PATH = 'articles'
-ARTICLE_URL = 'articles/{slug}'
-ARTICLE_SAVE_AS = 'articles/{slug}.html'
-PAGE_URL = '{slug}'
-PAGE_SAVE_AS = '{slug}.html'
 OUTPUT_PATH = BASE_PATH / 'dist'
-DIRECT_TEMPLATES = ['index']
+PATH = 'articles'
+ARTICLE_URL = '/articles/{slug}'
+ARTICLE_SAVE_AS = PATH + '/{slug}.html'
+PAGE_URL = '/{slug}'
+PAGE_SAVE_AS = '{slug}.html'
+DIRECT_TEMPLATES = ['index', 'allarticles']
+ALLARTICLES_SAVE_AS = PATH + '/index.html'
 THEME = 'assets'
 THEME_TEMPLATES_OVERRIDES = [f'{THEME}/scripts']
 THEME_STATIC_PATHS = ['favicons', 'images', 'manifest.webmanifest']

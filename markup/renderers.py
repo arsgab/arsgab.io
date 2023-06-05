@@ -9,7 +9,7 @@ from markup import renderer_ref
 from markup.processors.picture import render_picture_tag
 from utils.datastructures import remap
 from utils.staticfiles import get_static_url, inline_static_assets
-from utils.templating import get_articles_colors_list, render_page_metadata
+from utils.templating import render_page_metadata, render_page_nav_header
 from utils.url import get_datafile_url, qualify_url
 
 GLOBALS = {
@@ -21,7 +21,7 @@ GLOBALS = {
     'static_inline': inline_static_assets,
     'picture': render_picture_tag,
     'pagemeta': render_page_metadata,
-    'colors': get_articles_colors_list,
+    'nav_header': render_page_nav_header,
 }
 
 FILTERS = {

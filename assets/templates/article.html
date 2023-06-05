@@ -9,15 +9,7 @@
   gravity='so', rt='fill-down'
 ) %}
 
-{% block header %}
-  <header role="banner" data-nav-header style="--text-color: {{ cover.text_color }}">
-    <nav data-container>
-      <a href="/" rel="home">{{ SITENAME }}</a>
-      <a href="/articles">Articles</a>
-    </nav>
-    {% include "partials/color-theme-switch.html" %}
-  </header>
-{% endblock header %}
+{% block header %}{{ nav_header(text_color=cover.text_color) }}{% endblock header %}
 
 {% block content %}
   <article>
