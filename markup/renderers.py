@@ -1,3 +1,4 @@
+from datetime import datetime
 from random import randint
 from uuid import uuid4
 
@@ -22,6 +23,7 @@ GLOBALS = {
     'picture': render_picture_tag,
     'pagemeta': render_page_metadata,
     'nav_header': render_page_nav_header,
+    'CURRENT_YEAR': datetime.now().year,
 }
 
 FILTERS = {

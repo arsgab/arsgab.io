@@ -8,6 +8,12 @@
   height=cover_height, ratio=1.0, loading='eager',
   gravity='so', rt='fill-down'
 ) %}
+{% set footer = remap(article.footer) %}
+{% set footer_picture = picture(
+  cover.image,
+  height=100, ratio=1.0, loading='lazy',
+  gravity='so', rt='fill-down'
+) %}
 
 {% block header %}{{ nav_header(text_color=cover.text_color) }}{% endblock header %}
 
@@ -34,5 +40,9 @@
     <div data-prop="content" data-container>
       {{ article.content }}
     </div>
+    <footer data-container>
+      {{ footer_picture }}
+      <p>{{ footer.text }}</p>
+    </footer>
   </article>
 {% endblock %}

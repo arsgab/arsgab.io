@@ -109,13 +109,9 @@
       color: #0088cc;
     }
   }
-}
 
-footer[role=contentinfo] {
-  margin: 6rem 0;
-
-  & [data-prop=copyright] {
-    font-size: .75em;
-    color: rgb(var(--text-color-base) / .4);
+  & footer[role=contentinfo] {
+    padding-left: 0;
+    padding-right: 0;
   }
 }

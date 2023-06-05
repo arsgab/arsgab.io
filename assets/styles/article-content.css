@@ -1,5 +1,6 @@
 article [data-prop=content] {
   position: relative;
+  margin-bottom: 5rem;
 
 // Limited-width elements
 
@@ -54,6 +55,10 @@ article [data-prop=content] {
     font-weight: 900;
     line-height: 1;
     color: rgb(var(--text-color-base) / .85);
+
+    & abbr {
+      letter-spacing: .1em;
+    }
 
     & a[href^="#"] {
       font-family: var(--font-family-mono);
@@ -166,5 +171,22 @@ article [data-prop=content] {
     border-radius: 3px;
     font-size: .9em;
     color: orangered;
+  }
+}
+
+article footer {
+  text-align: center;
+  margin-top: 8rem;
+  margin-bottom: 10rem;
+  color: rgb(var(--text-color-base) / .75);
+  font-size: .8em;
+
+  & picture {
+    mix-blend-mode: multiply;
+    opacity: .8;
+
+    & img {
+      margin: 0 auto;
+    }
   }
 }

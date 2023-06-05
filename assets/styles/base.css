@@ -2,6 +2,7 @@ html {
   font-size: 100%;
   background: var(--bg-color);
   -webkit-overflow-scrolling: touch;
+  height: 100%;
 }
 
 body {
@@ -12,6 +13,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-variant-ligatures: common-ligatures contextual;
+  min-height: 100%;
 }
 
 [hidden] {
@@ -39,6 +41,10 @@ a {
   &:hover {
     color: var(--link-hover-color);
   }
+}
+
+main {
+  min-height: 50vh;
 }
 
 [data-container] {
@@ -103,5 +109,15 @@ a {
 
   & time {
     opacity: .8;
+  }
+}
+
+footer[role=contentinfo] {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+
+  & [data-prop=copyright] {
+    color: rgb(var(--text-color-base) / .75);
+    font-size: .8em;
   }
 }

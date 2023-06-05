@@ -59,7 +59,8 @@ class PageMetadata(NamedTuple):
     def from_context(cls, ctx: Context) -> 'PageMetadata':
         article = ctx.get('article')
         if not article:
-            return cls()
+            title = ctx.get('title') or SITENAME
+            return cls(title=title)
 
         title = getattr(article, 'meta_title', '') or article.title
         description = getattr(article, 'meta_description', '')

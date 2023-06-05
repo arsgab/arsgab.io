@@ -45,7 +45,13 @@
   </main>
 {% endblock main %}
 
-{% block footer %}{% endblock %}
+{% block footer %}
+  <footer role="contentinfo" data-container>
+    {% block copyright %}
+      <small data-prop="copyright">© {{ AUTHOR }}, {{ CURRENT_YEAR }}</small>
+    {% endblock %}
+  </footer>
+{% endblock %}
 
 </body>
 </html>
