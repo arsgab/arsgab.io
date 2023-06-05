@@ -1,0 +1,12 @@
+<figure data-src="{{ src }}" data-bordered="{{ bordered|string|lower }}">
+  <video
+    tabindex="-1"
+    muted="muted"
+    loop="loop"
+    autoplay="autoplay"
+  >
+  {% for source in sources %}
+    <source type="{{ source.type }}" src="{{ source.src }}" />
+  {% endfor %}
+  </video>
+</figure>

@@ -7,7 +7,7 @@ from jinja2.runtime import Context
 from markup import renderer_ref
 from pelicanconf import DEFAULT_OG_IMAGE, SITEDESC, SITENAME
 
-from .media import get_processed_image_url
+from .media import get_processed_media_url
 
 OG_IMAGE_WIDTH = 1200
 OG_IMAGE_HEIGHT = 630
@@ -53,7 +53,7 @@ class PageMetadata(NamedTuple):
 
     @property
     def og_image_url(self) -> str:
-        return get_processed_image_url(self.og_image, **OG_IMAGE_PROCESSING_PARAMS)
+        return get_processed_media_url(self.og_image, **OG_IMAGE_PROCESSING_PARAMS)
 
     @classmethod
     def from_context(cls, ctx: Context) -> 'PageMetadata':

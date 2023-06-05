@@ -33,30 +33,37 @@ SIZED_IMAGE_FILENAME_PATTERN = re_compile(
 )
 
 
-def get_processed_image_url(
+def get_media_url(source_url_or_path: str) -> str:
+    if not source_url_or_path:
+        return ''
+    return f'https://{IMGPROXY_FQDN}/{URL_NAMESPACE}/{source_url_or_path}'
+
+
+def get_processed_media_url(
     source_url_or_path: str,
     encode_source_url: bool = not IMGPROXY_PLAIN_SOURCE_URL,
+    sign: bool = True,
     ext: str = 'webp',
     **options: Any,
 ) -> str:
     if not source_url_or_path:
         return ''
 
-    source_url = _qualify_source_image_url(source_url_or_path)
+    source_url = _qualify_source_media_url(source_url_or_path)
     if encode_source_url:
-        source_url = _encode_source_image_url(source_url)
+        source_url = _encode_source_media_url(source_url)
     else:
         source_url = f'plain/{source_url}'
     processing_options = '/'.join(f'{k}:{v}' for k, v in options.items() if v is not None)
     path = f'/{processing_options}/{source_url}' if processing_options else f'/{source_url}'
     if ext is not None:
         path = f'{path}.{ext}' if encode_source_url else f'{path}@{ext}'
-    signature = _generate_image_path_signature(path).decode()
+    signature = _generate_image_path_signature(path).decode() if sign else ''
     return f'https://{IMGPROXY_FQDN}/{signature}{path}'
 
 
 def get_resized_image_url(source_url: str, width: int, ext: str = 'webp', **extra: Any) -> str:
-    return get_processed_image_url(source_url, w=width, ext=ext, **extra)
+    return get_processed_media_url(source_url, w=width, ext=ext, **extra)
 
 
 class ImageDimensions(NamedTuple):
@@ -181,7 +188,7 @@ class ImageResizeSet:
         return get_resized_image_url(self.source_url, width=max_width, **kwargs)
 
 
-def _qualify_source_image_url(source_url: str) -> str:
+def _qualify_source_media_url(source_url: str) -> str:
     img_base, img_ext = splitext(source_url)
 
     # It's not an extension, it's dimensions part...
@@ -196,7 +203,7 @@ def _qualify_source_image_url(source_url: str) -> str:
     return f'local:///{source_url}'
 
 
-def _encode_source_image_url(source_url: str) -> str:
+def _encode_source_media_url(source_url: str) -> str:
     source_url = urlsafe_b64encode(source_url.encode()).rstrip(b'=')
     return '/'.join(wrap(source_url.decode(), 16))
 

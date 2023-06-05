@@ -10,7 +10,7 @@ from utils import (
     Shortcode,
     ShortcodeProcessor,
     StrEnum,
-    get_processed_image_url,
+    get_processed_media_url,
     render_template_partial,
 )
 
@@ -144,12 +144,12 @@ def render_picture_tag(
         height = int(width * ratio)
     source = {
         'srcset': [
-            get_processed_image_url(src, width=width, height=height, **kwargs),
-            get_processed_image_url(src, width=width * 2, height=height * 2, **kwargs) + ' 2x',
+            get_processed_media_url(src, width=width, height=height, **kwargs),
+            get_processed_media_url(src, width=width * 2, height=height * 2, **kwargs) + ' 2x',
         ],
         'media_query': '(min-width: 0px)',
     }
-    fallback = get_processed_image_url(src, width=width, height=height, ext='jpg', **kwargs)
+    fallback = get_processed_media_url(src, width=width, height=height, ext='jpg', **kwargs)
     ctx = {
         'sources': (source,),
         'fallback': fallback,

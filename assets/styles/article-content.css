@@ -91,12 +91,13 @@ article [data-prop=content] {
   & figure {
     margin: 2rem 0;
 
-    & picture {
+    & picture, & video {
       border-radius: var(--roundness-radius);
       overflow: hidden;
     }
 
-    &[data-bordered=true] picture {
+    &[data-bordered=true] picture,
+    &[data-bordered=true] video {
       border: 1px solid rgb(var(--text-color-base) / .1);
     }
   }

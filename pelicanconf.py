@@ -50,13 +50,13 @@ STATIC_URL = f'/{THEME_STATIC_DIR}/'
 INLINE_SCRIPTS = env.get('INLINE_SCRIPTS') == 'true'
 
 # Processors/renderers setup
+_PROCESSORS = ['picture', 'screencast', 'heading']
 MARKDOWN = {
     'extension_configs': {
         'markdown.extensions.meta': {},
         'markdown.extensions.abbr': {},
         'markdown.extensions.md_in_html': {},
-        'markup.processors.picture': {},
-        'markup.processors.heading': {},
+        **{f'markup.processors.{processor}': {} for processor in _PROCESSORS},
     },
     'output_format': 'html5',
 }
