@@ -8,7 +8,7 @@ from markdown.treeprocessors import Treeprocessor
 
 class HeadingIdProcessor(Treeprocessor):
     HEADINGS_TAGS = {'h2', 'h3'}
-    REGEX = re_compile(r'\[#(?P<idx>\w+)\](?P<text>.+)')
+    REGEX = re_compile(r'\[#(?P<idx>[\w-]+)\](?P<text>.+)')
     ANCHOR_SYMBOL = '¶'
 
     def run(self, root: Element) -> None:

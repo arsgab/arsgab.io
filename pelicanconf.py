@@ -53,6 +53,7 @@ INLINE_SCRIPTS = env.get('INLINE_SCRIPTS') == 'true'
 MARKDOWN = {
     'extension_configs': {
         'markdown.extensions.meta': {},
+        'markdown.extensions.abbr': {},
         'markdown.extensions.md_in_html': {},
         'markup.processors.picture': {},
         'markup.processors.heading': {},
