@@ -1,19 +1,14 @@
 from collections import defaultdict, deque
-from collections.abc import Iterable, Iterator
 from contextlib import suppress
 from contextvars import ContextVar
-from html.parser import HTMLParser
-from re import Pattern, compile as re_compile
 from typing import Any
 from xml.etree.ElementTree import Element, fromstring as xml_from_string
 
-from markdown.blockprocessors import BlockProcessor
-from markdown.extensions import Extension
-
-from pelicanconf import AUTHOR
 from utils import (
     ImageDimensions,
     ImageResizeSet,
+    Shortcode,
+    ShortcodeProcessor,
     StrEnum,
     get_processed_image_url,
     render_template_partial,
@@ -21,24 +16,17 @@ from utils import (
 
 PICTURE_DEFAULT_RATIO = 1.777  # 16:9
 PICTURE_RATIO_PRECISION = 3
-PICTURE_JSON_LD_BASE = {
-    "@context": "https://schema.org/",
-    "@type": "ImageObject",
-    "creator": {"@type": "Person", "name": AUTHOR},
-}
-PICTURE_JSON_LD_MAX_ITEMS = 10
 picture_processor_context_ref: ContextVar[defaultdict[int, deque['Picture']]] = ContextVar(
     'picture_processor_context', default=defaultdict(deque)
 )
 
 
-class Picture(HTMLParser):
-    TAG: str = 'pic'
+class Picture(Shortcode):
+    required_attrs = {'src'}
     index: int = 1
     ratio: float = PICTURE_DEFAULT_RATIO
     dimensions: ImageDimensions
     resizes: ImageResizeSet
-    attrs: dict[str, str]
     src: str
 
     class Loading(StrEnum):
@@ -48,9 +36,6 @@ class Picture(HTMLParser):
     class Orientation(StrEnum):
         LANDSCAPE = 'landscape'
         PORTRAIT = 'portrait'
-
-    def handle_starttag(self, tag: str, attrs: list[tuple[str, str]]) -> None:
-        self.attrs = dict(attrs) if tag == self.TAG else {}
 
     def feed(self, data: str) -> None:
         super().feed(data)
@@ -85,7 +70,10 @@ class Picture(HTMLParser):
             return round(1 / PICTURE_DEFAULT_RATIO, precision)
         return PICTURE_DEFAULT_RATIO
 
-    def create_element(self) -> Element:
+    def create_element(self, index: int = 0) -> Element:
+        self.index = index
+        refs = picture_processor_context_ref.get()
+        refs[id(self)].append(self)
         rendered = render_template_partial('picture', self.get_context())
         return xml_from_string(rendered)
 
@@ -130,38 +118,13 @@ class Picture(HTMLParser):
         caption = self.attrs.get('caption') or ''
         return f'<a href="#{self.html_id}"><i>Figure {self.index}</i></a>. {caption}'
 
-    @classmethod
-    def create_json_ld(
-        cls, pictures: Iterable['Picture'], max_items: int | None = PICTURE_JSON_LD_MAX_ITEMS
-    ) -> Iterator[dict]:
-        for index, picture in enumerate(pictures):
-            if max_items is not None and index >= max_items:
-                break
-            url = picture.resizes.get_fallback(max_width=1000, ext='jpg', q=80)
-            yield {**PICTURE_JSON_LD_BASE, 'contentUrl': url}
+
+class PictureProcessor(ShortcodeProcessor):
+    name = 'pic'
+    parser_cls = Picture
 
 
-class PictureBlockProcessor(BlockProcessor):
-    REGEX: Pattern = re_compile(r'\[pic(.+)]')
-    _count: int = 0
-
-    def test(self, parent: Element, block: str) -> bool:
-        return bool(self.REGEX.match(block))
-
-    def run(self, parent: Element, blocks: list[str]) -> bool:
-        block = blocks.pop(0).replace('[', '<').replace(']', '>')
-        picture = Picture()
-        picture.feed(block)
-        if not picture.src:
-            return False
-
-        self._count += 1
-        picture.index = self._count
-        parent.append(picture.create_element())
-        picture.close()
-        refs = picture_processor_context_ref.get()
-        refs[id(self)].append(picture)
-        return True
+makeExtension = PictureProcessor.register()
 
 
 # TODO: refactor this block
@@ -195,11 +158,3 @@ def render_picture_tag(
         'dimensions': (width, height),
     }
     return render_template_partial('picture-tag', ctx)
-
-
-def makeExtension(**kwargs) -> Extension:  # noqa
-    class PictureExtension(Extension):
-        def extendMarkdown(self, md) -> None:
-            md.parser.blockprocessors.register(PictureBlockProcessor(md.parser), 'pic', 999)
-
-    return PictureExtension(**kwargs)
