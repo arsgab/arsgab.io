@@ -114,6 +114,7 @@ class Picture(HTMLParser):
             'caption': self.html_caption,
             'span': span or '*',
             'offset': offset or '*',
+            'bordered': 'bordered' in self.attrs,
         }
 
     @property

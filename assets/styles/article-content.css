@@ -89,10 +89,15 @@ article [data-prop=content] {
 // Images
 
   & figure {
-    margin: 3rem 0;
+    margin: 2rem 0;
 
-    & img {
+    & picture {
       border-radius: var(--roundness-radius);
+      overflow: hidden;
+    }
+
+    &[data-bordered=true] picture {
+      border: 1px solid rgb(var(--text-color-base) / .1);
     }
   }
 
