@@ -7,7 +7,10 @@ date: 2023-06-01
 cover:
     bg_color: darkblue
     text_color: orange
-    image: ssg/rabbit.png
+    image: iso/rabbit.png
+    filter: invert(1) grayscale(1) contrast(1.2)
+    mix_blend_mode: screen
+    gradient_angle: -45
 ---
 
 Coming soon.

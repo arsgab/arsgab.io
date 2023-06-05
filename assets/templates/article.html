@@ -31,9 +31,12 @@
           {{ article.date|strftime('%B %-d, %Y') }}
         </time>
       </div>
-      <div data-article-cover style="--cover-height: {{ cover_height }}px">
-        {{ cover_picture }}
-      </div>
+      <div data-article-cover style="
+        --cover-height: {{ cover_height }}px;
+        --cover-filter: {{ cover.filter or 'none' }};
+        --cover-mix-blend-mode: {{ cover.mix_blend_mode or 'normal' }};
+        --cover-gradient-angle: {{ cover.gradient_angle or 0 }}deg;
+      ">{{ cover_picture }}</div>
     </header>
     {% if article.lead %}<p data-prop="lead" data-container>{{ article.lead }}</p>{% endif %}
     <div data-prop="content" data-container>

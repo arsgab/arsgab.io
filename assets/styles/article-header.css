@@ -100,9 +100,11 @@ article {
       transform: translateX(-50%);
       height: 100%;
       width: auto;
-      filter: invert(1) grayscale(1) contrast(2);
-      mask-image: linear-gradient(-30deg, black, ease-in-out, rgba(0, 0, 0, .2));
-      mix-blend-mode: screen;
+      filter: var(--cover-filter);
+      mix-blend-mode: var(--cover-mix-blend-mode);
+      mask-image:
+          linear-gradient(var(--cover-gradient-angle), black, ease-in-out, transparent),
+          url("noise.svg");
     }
   }
 
