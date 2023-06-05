@@ -77,11 +77,12 @@ article {
 
   & [data-prop=lead] {
     font-family: var(--font-family-accent);
-    font-size: 2.2em;
-    line-height: .8;
+    font-size: 2em;
+    line-height: 1.2;
     margin-bottom: 3rem;
     font-style: italic;
-    text-indent: 2rem;
+    text-indent: -1.5rem;
+    padding-left: calc(var(--gutter) + 1.5rem);
 
     @media (--mobile) {
       line-height: 1;
