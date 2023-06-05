@@ -11,11 +11,11 @@ AUTHOR = env.get('AUTHOR') or 'Arseny Gabdullin'
 SITENAME = env.get('SITENAME') or AUTHOR
 SITE_FQDN = env.get('SITE_FQDN') or 'arsgab.io'
 SITEDESC = env.get('SITEDESC') or 'OFFICIAL WEBSITE'
-TIMEZONE = env.get('TIMEZONE', 'Europe/Belgrade')
-DEFAULT_DATE = 'fs'
+TIMEZONE = env.get('TIMEZONE') or 'Europe/Belgrade'
 STATS_SCRIPTS_URL = env.get('STATS_SCRIPTS_URL') or 'https://stat.arsgab.io/stonks'
 STATS_WEBSITE_ID = env.get('STATS_WEBSITE_ID')
 DEFAULT_OG_IMAGE = env.get('DEFAULT_OG_IMAGE') or 'share.jpeg'
+DEFAULT_DATE = 'fs'
 
 # Build setup
 PATH = 'articles'

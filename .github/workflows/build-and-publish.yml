@@ -21,7 +21,6 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  AUTHOR: ${{ github.repository_owner }}
   STATS_WEBSITE_ID: ${{ vars.STATS_WEBSITE_ID }}
   IMGPROXY_KEY: ${{ secrets.IMGPROXY_KEY }}
   IMGPROXY_SALT: ${{ secrets.IMGPROXY_SALT }}
