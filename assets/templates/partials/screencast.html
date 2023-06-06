@@ -1,13 +1,33 @@
-<figure data-src="{{ src }}" data-bordered="{{ bordered|string|lower }}">
-  <video
-    tabindex="-1"
-    muted="muted"
-    loop="loop"
-    autoplay="autoplay"
-    poster="{{ poster }}"
-  >
-  {% for source in sources %}
-    <source type="{{ source.type }}" src="{{ source.src }}" />
-  {% endfor %}
-  </video>
+{% set figure_styles = {
+  'ratio': ratio,
+  'max-width': width|string + 'px',
+} %}
+
+<figure
+  data-src="{{ src }}"
+  data-bordered="{{ bordered|string|lower }}"
+  id="{{ id or uuid().hex }}"
+  {{ figure_styles|cssvars }}
+>
+  <div data-video-wrapper="">
+    <video
+      data-loading="{{ loading }}"
+      width="{{ width }}"
+      height="{{ height }}"
+      tabindex="{{ '' if focusable else -1 }}"
+      poster="{{ poster }}"
+      muted="muted"
+      loop="loop"
+      autoplay="autoplay"
+      playsinline="playsinline"
+    >
+    {% for source in sources %}
+    {% if loading == 'lazy' %}
+      <source data-src="{{ source.src }}" type="{{ source.type }}" />
+    {% else %}
+      <source src="{{ source.src }}" type="{{ source.type }}" />
+    {% endif %}
+    {% endfor %}
+    </video>
+  </div>
 </figure>

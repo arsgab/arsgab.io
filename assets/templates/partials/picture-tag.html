@@ -1,4 +1,4 @@
-<picture style="--ratio: {{ ratio or 1 }};">
+<picture>
   {% set width, height = dimensions if dimensions else (0, 0) %}
   {% for source in sources %}
     <source srcset="{{ source.srcset|join(', ') }}" media="{{ source.media_query }}"/>

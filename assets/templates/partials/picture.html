@@ -1,10 +1,12 @@
+{% set figure_styles = {'ratio': ratio or 1} %}
 <figure
   data-src="{{ src }}"
   data-index="{{ index or 0 }}"
   data-bordered="{{ bordered|string|lower }}"
   data-span="{{ span }}"
   data-offset="{{ offset or 0 }}"
-  id="{{ id or uuid() }}"
+  id="{{ id or uuid().hex }}"
+  {{ figure_styles|cssvars }}
 >
   {% include "partials/picture-tag.html" with context %}
 {% if caption %}<figcaption>{{ caption|safe }}</figcaption>{% endif %}

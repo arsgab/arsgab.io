@@ -10,6 +10,10 @@ from utils import (
     render_template_partial,
 )
 
+VIDEO_DEFAULT_WIDTH = 800
+VIDEO_DEFAULT_HEIGHT = 600
+VIDEO_DEFAULT_RATIO = 1.333
+
 
 class Screencast(Shortcode):
     required_attrs = {'src'}
@@ -25,15 +29,26 @@ class Screencast(Shortcode):
     def get_context(self) -> dict:
         src, _ = splitext(self.attrs['src'])
         eager = self.attrs.get('lazy') == 'false' or 'eager' in self.attrs
+        try:
+            width, height = int(self.attrs.get('width')), int(self.attrs.get('height'))
+            ratio = round(width / height, 3)
+        except (ValueError, TypeError):
+            width, height = VIDEO_DEFAULT_WIDTH, VIDEO_DEFAULT_HEIGHT
+            ratio = VIDEO_DEFAULT_RATIO
         return {
+            'loading': self.Loading.EAGER if eager else self.Loading.LAZY,
             'src': src,
-            'poster': get_processed_media_url(f'{src}.jpg', q=60),
             'sources': [
                 {'type': 'video/webm', 'src': get_media_url(f'{src}.webm')},
                 {'type': 'video/mp4', 'src': get_media_url(f'{src}.mp4')},
             ],
-            'loading': self.Loading.EAGER if eager else self.Loading.LAZY,
+            'width': width,
+            'height': height,
+            'ratio': ratio,
+            'poster': get_processed_media_url(src, q=60),
             'bordered': 'bordered' in self.attrs,
+            'focusable': 'focusable' in self.attrs,
+            'id': self.attrs.get('id'),
         }
 
 
