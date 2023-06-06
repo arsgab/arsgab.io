@@ -89,4 +89,8 @@ edit:
 	make devserver &
 	npm run bs
 
-.PHONY: html help clean regenerate serve serve-global devserver publish 
+video:
+	$(VENV)/bin/invoke videofiles $(SRC)
+
+
+.PHONY: html help clean regenerate serve serve-global devserver publish fmt lint static statichash watch edit video

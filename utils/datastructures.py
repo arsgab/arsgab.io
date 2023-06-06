@@ -1,4 +1,6 @@
 from enum import Enum
+from subprocess import PIPE, Popen
+from sys import stdout
 from typing import Iterable
 
 
@@ -17,3 +19,13 @@ def remap(pairs: Iterable[str], delimiter: str = ':') -> dict[str, str]:
 def dict_to_css_variables(values: dict) -> str:
     variables = '; '.join(f'--{var}: {value}' for var, value in values.items())
     return f'style="{variables}"'
+
+
+def run_subprocess_and_log_stdout(cmd: str) -> None:
+    with Popen(cmd, shell=True, stdout=PIPE) as proc:
+        while True:
+            proc_stdout = proc.stdout.read().decode('utf-8')
+            stdout.write(proc_stdout)
+            if proc.poll() is not None:
+                break
+        proc.terminate()

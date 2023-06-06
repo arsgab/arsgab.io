@@ -9,6 +9,7 @@ from pelican import main as pelican_main
 from pelican.server import ComplexHTTPRequestHandler, RootedHTTPServer
 from pelican.settings import DEFAULT_CONFIG, get_settings_from_file
 
+from utils.datastructures import run_subprocess_and_log_stdout
 from utils.staticfiles import generate_staticfiles_manifest
 
 OPEN_BROWSER_ON_SERVE = True
@@ -134,5 +135,27 @@ def pelican_run(cmd):
 
 
 @task
-def staticfiles(cmd):
+def staticfiles(_):
     generate_staticfiles_manifest()
+
+
+FFMPEG_BIN = os.environ.get('FFMPEG') or 'ffmpeg'
+WEBM = (
+    '{ffmpeg} -i "{source}" -an -c:v libvpx-vp9 -crf 40 -vf unsharp=5:5:1.0 '
+    '-deadline good -threads 0 "{output}"'
+)
+MP4 = (
+    '{ffmpeg} -i "{source}" -an -c:v libx265 -crf 32 -tag:v hvc1 -vf unsharp=5:5:1.0 '
+    '-movflags faststart -preset slower -threads 0 "{output}"'
+)
+JPEG = '{ffmpeg} -i "{source}" -vframes 1 -q:v 1 "{output}"'
+
+
+@task
+def videofiles(_, source: str):
+    fname, _ = os.path.splitext(source)
+    webm_cmd = WEBM.format(source=source, output=f'{fname}.webm', ffmpeg=FFMPEG_BIN)
+    mp4_cmd = MP4.format(source=source, output=f'{fname}.mp4', ffmpeg=FFMPEG_BIN)
+    jpeg_cmd = JPEG.format(source=f'{fname}.mp4', output=f'{fname}.jpeg', ffmpeg=FFMPEG_BIN)
+    for cmd in (webm_cmd, mp4_cmd, jpeg_cmd):
+        run_subprocess_and_log_stdout(cmd)
