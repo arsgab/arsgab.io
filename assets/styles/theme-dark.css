@@ -4,6 +4,10 @@ html[data-color-theme=dark] {
   --link-color: orange;
   --link-visited-color: grey;
 
+  & [data-social-links] a {
+    filter: brightness(1.3);
+  }
+
   & article header {
     filter: brightness(.8);
   }

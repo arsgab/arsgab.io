@@ -54,8 +54,9 @@
     & li {
       display: inline;
       position: relative;
-      padding-right: 1rem;
+      padding-right: 1.5rem;
       white-space: nowrap;
+      color: rgb(var(--text-color-base) / .5);
 
       @media (--mobile) {
         padding-right: 1rem;
@@ -63,10 +64,11 @@
     }
 
     & li:not(:last-child)::after {
-      content: "•";
-      opacity: .5;
+      content: "/";
+      font-weight: 200;
       position: absolute;
-      display: inline-block;
+      margin-left: .4rem;
+      margin-top: -.4ex;
     }
 
     & a {
@@ -79,7 +81,7 @@
     }
   }
 
-  & a {
+  & [data-social-links] a {
     &[href*="linkedin.com"] {
       color: #006192;
     }
