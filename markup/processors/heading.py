@@ -1,9 +1,11 @@
 from re import compile as re_compile
-from typing import Iterable
+from typing import Iterable, Iterator
 from xml.etree.ElementTree import Element, fromstring as xml_from_string
 
 from markdown.extensions import Extension
 from markdown.treeprocessors import Treeprocessor
+
+from utils import render_template_partial
 
 
 class HeadingIdProcessor(Treeprocessor):
@@ -13,19 +15,25 @@ class HeadingIdProcessor(Treeprocessor):
 
     def run(self, root: Element) -> None:
         headings = filter(lambda el: el.tag in self.HEADINGS_TAGS, root)
-        self.add_headings_anchors(headings)
+        anchors = self.add_headings_anchors(headings)
+        toc = [{'id': idx, 'title': title} for idx, title in anchors]
+        toc_rendered = render_template_partial('article-toc', {'toc': toc})
+        root.insert(0, xml_from_string(toc_rendered))
 
-    def add_headings_anchors(self, headings: Iterable[Element]) -> None:
+    def add_headings_anchors(self, headings: Iterable[Element]) -> Iterator[tuple[str, str]]:
         for heading in headings:
             match = self.REGEX.match(heading.text)
             if not match:
                 continue
             match_groups = match.groupdict()
             idx = match_groups['idx']
-            heading.text = match_groups['text'].lstrip() + ' '
+            text = match_groups['text'].strip()
+            heading.text = text + ' '
             heading.attrib.update({'id': idx})
             anchor = f'<a href="#{idx}" tabindex="-1">{self.ANCHOR_SYMBOL}</a>'
             heading.append(xml_from_string(anchor))
+            if heading.tag == 'h2':
+                yield idx, text
 
 
 def makeExtension(**kwargs) -> Extension:  # noqa
