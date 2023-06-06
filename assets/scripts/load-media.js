@@ -12,6 +12,7 @@ window.addEventListener('load', () => {
     // Set data attrs
     ['load', 'loadeddata'].map(event => media.addEventListener(event, () => {
       parents.map(el => el.dataset.loaded = 'true');
+      media.playbackRate = parseFloat(media.dataset.playbackRate) || 1.0;
     }));
     parents.map(el => el.dataset.loaded = media.complete ? 'true' : 'false');
 
@@ -40,6 +41,7 @@ function onObserve(entry, observer) {
   if (lazyVideo) {
     [...lazyVideo.children].map(source => source.src = source.dataset.src);
     lazyVideo.load();
+    lazyVideo.playbackRate = parseFloat(lazyVideo.dataset.playbackRate) || 1.0;
   }
 
   observer.unobserve(element);

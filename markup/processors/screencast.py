@@ -35,6 +35,10 @@ class Screencast(Shortcode):
         except (ValueError, TypeError):
             width, height = VIDEO_DEFAULT_WIDTH, VIDEO_DEFAULT_HEIGHT
             ratio = VIDEO_DEFAULT_RATIO
+        try:
+            playback_rate = float((self.attrs.get('speed') or '1.0').rstrip('x'))
+        except ValueError:
+            playback_rate = 1.0
         return {
             'loading': self.Loading.EAGER if eager else self.Loading.LAZY,
             'src': src,
@@ -49,6 +53,7 @@ class Screencast(Shortcode):
             'bordered': 'bordered' in self.attrs,
             'focusable': 'focusable' in self.attrs,
             'id': self.attrs.get('id'),
+            'playback_rate': playback_rate,
         }
 
 
