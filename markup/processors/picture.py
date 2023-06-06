@@ -116,7 +116,7 @@ class Picture(Shortcode):
     @property
     def html_caption(self) -> str:
         caption = self.attrs.get('caption') or ''
-        return f'<a href="#{self.html_id}"><i>Figure {self.index}</i></a>. {caption}'
+        return f'<a tabindex="-1" href="#{self.html_id}"><i>Figure {self.index}</i></a>. {caption}'
 
 
 class PictureProcessor(ShortcodeProcessor):
