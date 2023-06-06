@@ -19,26 +19,15 @@
 
 {% block content %}
 <article>
-  <p data-prop="bio">Running, cycling, traveling—and <a href="https://photos.arsgab.io"
+  <p data-prop="bio">Running, cycling, traveling — and <a href="https://photos.arsgab.io"
                                                         data-umami-event="click-photosite">making photos</a> of it.</p>
-  <p>Drop me a line <small>→</small> <a href="mailto:mail@arsgab.io">mail@arsgab.io</a></p>
-  <ul data-social-links>
-    <li><a data-umami-event="click-linkedin" href="https://www.linkedin.com/in/arsgab/" target="_blank" rel="noopener">LinkedIn</a>
-    </li>
-    <li><a data-umami-event="click-github" href="https://github.com/arsgab" target="_blank" rel="noopener">GitHub</a>
-    </li>
-    <li><a data-umami-event="click-instagram" href="https://instagram.com/arseny.ga/" target="_blank" rel="noopener">Instagram</a>
-    </li>
-    <li hidden><a rel="me" href="https://mastodon.online/@arsgab">Mastodon</a></li>
-    <li><a data-umami-event="click-strava" href="https://www.strava.com/athletes/arsgab" target="_blank" rel="noopener">Strava</a>
-    </li>
-    <li><a data-umami-event="click-telegram" href="https://t.me/+A2NIRdxMDm8wYWFi" target="_blank" rel="noopener">Telegram
-      channel</a> (in Russian)
-    </li>
-  </ul>
+  <p>Drop me a line <small>→</small> <a href="mailto:{{ AUTHOR_EMAIL }}">{{ AUTHOR_EMAIL }}</a></p>
+  {% include "partials/social-links.html" %}
 </article>
 {% endblock %}
 
-{% block copyright %}
+{% block footer_copyright %}
   <small data-prop="copyright">© Suvlehim Takac d.o.o. Beograd, Srbija</small>
 {% endblock %}
+
+{% block footer_contact %}{% endblock %}

@@ -8,6 +8,8 @@ load_dotenv()
 
 # Site setup
 AUTHOR = env.get('AUTHOR') or 'Arseny Gabdullin'
+AUTHOR_EMAIL = env.get('AUTHOR_EMAIL') or 'mail@arsgab.io'
+AUTHOR_EMAIL_SECONDARY = env.get('AUTHOR_EMAIL_SECONDARY') or 'me@arsgab.io'
 SITENAME = env.get('SITENAME') or AUTHOR
 SITE_FQDN = env.get('SITE_FQDN') or 'arsgab.io'
 SITEDESC = env.get('SITEDESC') or 'OFFICIAL WEBSITE'

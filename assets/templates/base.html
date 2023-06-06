@@ -47,8 +47,14 @@
 
 {% block footer %}
   <footer role="contentinfo" data-container>
-    {% block copyright %}
-      <small data-prop="copyright">© {{ AUTHOR }}, {{ CURRENT_YEAR }}</small>
+    <p data-prop="sourcecode">
+      <a data-umami-event="click-github-footer" href="https://github.com/arsgab/arsgab.io/">View source code</a>
+    </p>
+    {% block footer_copyright %}
+      <small data-prop="copyright">© {{ CURRENT_YEAR }} {{ AUTHOR }}</small>
+    {% endblock %}
+    {% block footer_contact %}
+      <small data-prop="contact"><a href="mailto:{{ AUTHOR_EMAIL_SECONDARY }}">{{ AUTHOR_EMAIL_SECONDARY }}</a></small>
     {% endblock %}
   </footer>
 {% endblock %}

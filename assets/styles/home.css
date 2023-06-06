@@ -54,7 +54,7 @@
     & li {
       display: inline;
       position: relative;
-      padding-right: 1.5rem;
+      padding-right: 1rem;
       white-space: nowrap;
 
       @media (--mobile) {
@@ -63,20 +63,15 @@
     }
 
     & li:not(:last-child)::after {
-      content: "✸";
-      font-size: .75em;
-      position: absolute;
+      content: "•";
       opacity: .5;
-      right: .3em;
-      bottom: 0;
-
-      @media (--mobile) {
-        right: 0;
-      }
+      position: absolute;
+      display: inline-block;
     }
 
     & a {
       text-decoration: none;
+      font-weight: 600;
 
       &:hover {
         opacity: .75;

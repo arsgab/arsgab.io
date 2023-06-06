@@ -127,8 +127,24 @@ footer[role=contentinfo] {
   margin-top: 2rem;
   margin-bottom: 2rem;
 
-  & [data-prop=copyright] {
-    color: rgb(var(--text-color-base) / .75);
+  & [data-prop=sourcecode] {
+    margin-bottom: .5rem;
+  }
+
+  & small {
+    --text-color: rgb(var(--text-color-base) / .75);
     font-size: .8em;
+
+    &:not(:last-child) {
+      &::after {
+        content: " •";
+        color: var(--text-color);
+        opacity: .5;
+      }
+    }
+
+    & a {
+      color: var(--text-color);
+    }
   }
 }
