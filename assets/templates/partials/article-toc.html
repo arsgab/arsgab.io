@@ -3,6 +3,6 @@
 <nav data-article-toc="aside" aria-hidden="true">
   <dl>
     <dt>{{ title }}</dt>
-    {% for item in toc %}<dd><a href="#{{ item.id }}">{{ item.title }}</a></dd>{% endfor %}
+    {% for item in toc %}<dd><a tabindex="-1" href="#{{ item.id }}">{{ item.title }}</a></dd>{% endfor %}
   </dl>
 </nav>

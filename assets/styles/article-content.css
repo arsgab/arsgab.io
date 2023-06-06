@@ -225,11 +225,12 @@ nav[data-article-toc] {
   }
 
   & a {
-    text-decoration-style: dotted;
-    color: rgb(var(--text-color-base) / .5);
     display: block;
     position: relative;
     padding: .25rem 0;
+    color: rgb(var(--text-color-base) / .5);
+    text-decoration-color: rgb(var(--text-color-base) / .25);
+    text-decoration-style: dotted;
 
     &:focus {
       outline: none;
@@ -237,6 +238,7 @@ nav[data-article-toc] {
 
     &:hover {
       color: rgb(var(--text-color-base) / .8);
+      text-decoration-color: rgb(var(--text-color-base) / .4);
     }
 
     &:active {
