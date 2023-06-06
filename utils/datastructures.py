@@ -12,3 +12,8 @@ def remap(pairs: Iterable[str], delimiter: str = ':') -> dict[str, str]:
         tuple(map(str.strip, pair.split(delimiter))) for pair in (pairs or ()) if pair
     )
     return dict(values)
+
+
+def dict_to_css_variables(values: dict) -> str:
+    variables = '; '.join(f'--{var}: {value}' for var, value in values.items())
+    return f'style="{variables}"'

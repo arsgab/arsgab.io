@@ -1,13 +1,25 @@
 {% extends "base.html" %}
 
 {% set body_attrs = ['data-page-article'] %}
+
 {% set cover = remap(article.cover) %}
+{% set header_styles = {
+  'cover-bg-color': cover.bg_color,
+  'text-color': cover.text_color,
+} %}
 {% set cover_height = cover.image_height or 300 %}
 {% set cover_picture = picture(
   cover.image,
   height=cover_height, ratio=1.0, loading='eager',
   gravity='so', rt='fill-down'
 ) %}
+{% set cover_styles = {
+  'cover-height': cover_height|string + 'px',
+  'cover-filter': cover.filter or 'none',
+  'cover-mix-blend-mode': cover.mix_blend_mode or 'normal',
+  'cover-gradient-angle': (cover.gradient_angle or 0)|string + 'deg',
+} %}
+
 {% set footer = remap(article.footer) %}
 {% set footer_picture = picture(
   cover.image,
@@ -19,7 +31,7 @@
 
 {% block content %}
   <article>
-    <header style="--cover-bg-color: {{ cover.bg_color }}; --text-color: {{ cover.text_color }}">
+    <header {{ header_styles|cssvars }}>
       <div data-container>
         <h1 data-prop="title">
           {{ article.title }}{% if article.title_label %}: <i>{{ article.title_label }}</i>{% endif %}
@@ -29,12 +41,7 @@
           {{ article.date|strftime('%B %-d, %Y') }}
         </time>
       </div>
-      <div data-article-cover style="
-        --cover-height: {{ cover_height }}px;
-        --cover-filter: {{ cover.filter or 'none' }};
-        --cover-mix-blend-mode: {{ cover.mix_blend_mode or 'normal' }};
-        --cover-gradient-angle: {{ cover.gradient_angle or 0 }}deg;
-      ">{{ cover_picture }}</div>
+      <div data-article-cover {{ cover_styles|cssvars }}>{{ cover_picture }}</div>
     </header>
     {% if article.lead %}<p data-prop="lead" data-container>{{ article.lead }}</p>{% endif %}
     <div data-prop="content" data-container>

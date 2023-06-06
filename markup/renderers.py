@@ -8,7 +8,7 @@ from pelican.contents import Article
 
 from markup import renderer_ref
 from markup.processors.picture import render_picture_tag
-from utils.datastructures import remap
+from utils.datastructures import dict_to_css_variables, remap
 from utils.staticfiles import get_static_url, inline_static_assets
 from utils.templating import render_page_metadata, render_page_nav_header
 from utils.url import get_datafile_url, qualify_url
@@ -28,6 +28,7 @@ GLOBALS = {
 
 FILTERS = {
     'qualify': qualify_url,
+    'cssvars': dict_to_css_variables,
 }
 
 
