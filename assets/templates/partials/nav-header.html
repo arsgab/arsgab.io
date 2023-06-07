@@ -1,8 +1,15 @@
-<header role="banner" data-nav-header style="--text-color: {{ text_color or 'inherit' }}">
+{% macro nav_header(text_color='inherit') -%}
+{% set styles = {'text-color': text_color} %}
+<header role="banner" data-nav-header {{ styles|cssvars }}>
   <nav data-container>
-  {% for href, name, attrs in nav %}
-    <a href="{{ href }}" {{ attrs|xmlattr }}>{{ name }}</a>
+  {% for nav in NAVBAR %}
+  {% if not nav.is_current_page(output_file|asdot) %}
+    <a href="{{ nav.href }}" {{ nav.attrs|xmlattr }}>{{ nav.title }}</a>
+  {% else %}
+    <b>{{ nav.title }}</b>
+  {% endif %}
   {% endfor %}
   </nav>
   {% include "partials/color-theme-switch.html" %}
 </header>
+{%- endmacro %}

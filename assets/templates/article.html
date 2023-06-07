@@ -2,7 +2,7 @@
 
 {% set body_attrs = ['data-page-article'] %}
 
-{% set cover = remap(article.cover) %}
+{% set cover = article.cover|remap %}
 {% set header_styles = {
   'cover-bg-color': cover.bg_color,
   'text-color': cover.text_color,
@@ -20,14 +20,14 @@
   'cover-gradient-angle': (cover.gradient_angle or 0)|string + 'deg',
 } %}
 
-{% set footer = remap(article.footer) %}
+{% set footer = article.footer|remap %}
 {% set footer_picture = picture(
   cover.image,
   height=100, ratio=1.0, loading='lazy',
   gravity='so', rt='fill-down'
 ) %}
 
-{% block header %}{{ nav_header(text_color=cover.text_color) }}{% endblock header %}
+{% block header %}{{ nav_header(text_color=cover.text_color) }}{% endblock %}
 
 {% block content %}
   <article>

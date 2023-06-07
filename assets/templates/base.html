@@ -1,3 +1,4 @@
+{% from "partials/nav-header.html" import nav_header with context %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,8 +25,8 @@
 {% else %}
   <script defer src="{{ static('script.js') }}"></script>
 {% endif %}
-  {% block styles %}{% endblock %}
-  {% block scripts %}{% endblock %}
+  {% block styles %}{% endblock styles %}
+  {% block scripts %}{% endblock scripts %}
 
   {% block stats %}
   {% if STATS_WEBSITE_ID %}
@@ -41,7 +42,7 @@
 
 {% block main %}
   <main>
-    {% block content %}{% endblock %}
+    {% block content required %}{% endblock %}
   </main>
 {% endblock main %}
 
@@ -57,7 +58,7 @@
       <small data-prop="contact"><a href="mailto:{{ AUTHOR_EMAIL_SECONDARY }}">{{ AUTHOR_EMAIL_SECONDARY }}</a></small>
     {% endblock %}
   </footer>
-{% endblock %}
+{% endblock footer %}
 
 </body>
 </html>

@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 {% set planned = ['My experience with self-hosted services'] %}
 
-{% block header %}{{ nav_header() }}{% endblock header %}
+{% block header %}{{ nav_header() }}{% endblock %}
 
 {% block content %}
 <h1 data-visually-hidden="true">All articles</h1>
 <ul data-content-cards-container>
   {% for article in articles %}
-  {% set cover = remap(article.cover) %}
+  {% set cover = article.cover|remap %}
   {% set style = {'card-bg-color': cover.bg_color, 'card-text-color': cover.text_color} %}
   <li data-content-card data-published>
     <article data-content-card-body {{ style|cssvars }}>

@@ -5,20 +5,35 @@
 [data-nav-header] {
   font-weight: 600;
   margin-bottom: 1rem;
+  user-select: none;
 
   & nav {
     font-size: 0;
   }
 
-  & a {
+  & a, & b {
     position: relative;
     display: inline-block;
     padding: 1rem;
-    text-decoration: none;
     font-size: 1rem;
     white-space: nowrap;
     color: var(--text-color);
+  }
+
+  & a {
+    text-decoration: none;
     opacity: var(--site-header-text-opacity);
+
+    &:not(:last-child)::after {
+      content: "/";
+      position: absolute;
+      font-weight: 200;
+      margin-left: .8rem;
+    }
+
+    &:hover::after {
+      opacity: .75;
+    }
 
     &:hover {
       opacity: 1;
@@ -27,18 +42,11 @@
     &[rel=home] {
       font-weight: 900;
       margin-left: -1rem;
-
-      &::after {
-        content: "/";
-        position: absolute;
-        font-weight: 200;
-        margin-left: .8rem;
-      }
-
-      &:hover::after {
-        opacity: .75;
-      }
     }
+  }
+
+  & b {
+    font-weight: inherit;
   }
 }
 

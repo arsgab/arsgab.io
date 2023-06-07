@@ -8,27 +8,34 @@ from pelican.contents import Article
 
 from markup import renderer_ref
 from markup.processors.picture import render_picture_tag
-from utils.datastructures import dict_to_css_variables, remap
+from pelicanconf import SITENAME
+from utils.datastructures import NavItem, dict_to_css_variables, filepath_to_dotnotation, remap
 from utils.staticfiles import get_static_url, inline_static_assets
-from utils.templating import render_page_metadata, render_page_nav_header
+from utils.templating import render_page_metadata
 from utils.url import get_datafile_url, qualify_url
 
+NAVBAR = [
+    NavItem('/', SITENAME, attrs={'rel': 'home'}),
+    NavItem('/articles', 'Articles', file='articles.index'),
+]
+
 GLOBALS = {
+    'NAVBAR': NAVBAR,
+    'CURRENT_YEAR': datetime.now().year,
     'random': randint,
-    'remap': remap,
     'uuid': uuid4,
     'static': get_static_url,
     'api': get_datafile_url,
     'static_inline': inline_static_assets,
     'picture': render_picture_tag,
     'pagemeta': render_page_metadata,
-    'nav_header': render_page_nav_header,
-    'CURRENT_YEAR': datetime.now().year,
 }
 
 FILTERS = {
     'qualify': qualify_url,
     'cssvars': dict_to_css_variables,
+    'remap': remap,
+    'asdot': filepath_to_dotnotation,
 }
 
 

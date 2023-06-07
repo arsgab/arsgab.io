@@ -19,10 +19,6 @@ OG_IMAGE_PROCESSING_PARAMS = {
     'rt': 'fill',
     'q': 75,
 }
-NAVIGATION = [
-    ('/', SITENAME, {'rel': 'home'}),
-    ('/articles', 'Articles', {}),
-]
 
 
 def render_template(template_name: str, ctx: dict = None) -> str:
@@ -84,8 +80,3 @@ class PageMetadata(NamedTuple):
 def render_page_metadata(ctx: Context) -> str:
     metadata = PageMetadata.from_context(ctx)
     return render_template_partial('pagemeta', {'meta': metadata})
-
-
-@pass_context
-def render_page_nav_header(ctx: Context, text_color: str | None = None) -> str:
-    return render_template_partial('nav-header', {'text_color': text_color, 'nav': NAVIGATION})
