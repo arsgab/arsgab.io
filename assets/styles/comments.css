@@ -1,0 +1,14 @@
+[data-container=comments] {
+  margin-bottom: 8rem;
+
+  & h2 {
+    font-weight: 900;
+    margin-bottom: 1rem;
+    color: rgb(var(--text-color-base) / .5);
+  }
+
+  & .utterances {
+    margin: 0;
+    max-width: none;
+  }
+}

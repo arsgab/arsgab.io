@@ -53,3 +53,20 @@
     </footer>
   </article>
 {% endblock %}
+
+{% block complementary %}
+{% block comments %}
+{% if COMMENTS_REPO and article.comments %}
+  <section data-container="comments" id="comments">
+    <h2>Comments</h2>
+    <script src="https://utteranc.es/client.js"
+            repo="{{ COMMENTS_REPO }}"
+            issue-term="pathname"
+            theme="{{ COMMENTS_COLOR_THEME }}"
+            crossorigin="anonymous"
+            async
+    ></script>
+  </section>
+{% endif %}
+{% endblock %}
+{% endblock %}

@@ -46,10 +46,12 @@
   </main>
 {% endblock main %}
 
+{% block complementary %}{% endblock complementary %}
+
 {% block footer %}
   <footer role="contentinfo" data-container>
     <p data-prop="sourcecode">
-      <a data-umami-event="click-github-footer" href="https://github.com/arsgab/arsgab.io/">View source code</a>
+      <a data-umami-event="click-github-footer" href="https://github.com/{{ SITE_REPO }}/">View source code</a>
     </p>
     {% block footer_copyright %}
       <small data-prop="copyright">© {{ CURRENT_YEAR }} {{ AUTHOR }}</small>

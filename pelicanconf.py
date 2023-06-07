@@ -18,6 +18,9 @@ STATS_SCRIPTS_URL = env.get('STATS_SCRIPTS_URL') or 'https://stat.arsgab.io/ston
 STATS_WEBSITE_ID = env.get('STATS_WEBSITE_ID')
 DEFAULT_OG_IMAGE = env.get('DEFAULT_OG_IMAGE') or 'share.jpeg'
 DEFAULT_DATE = 'fs'
+SITE_REPO = env.get('GITHUB_REPOSITORY', '')
+COMMENTS_REPO = env.get('COMMENTS_REPO', 'arsgab/comments.arsgab.io')
+COMMENTS_COLOR_THEME = 'preferred-color-scheme'
 
 # Build setup
 OUTPUT_PATH = BASE_PATH / 'dist'
