@@ -23,14 +23,17 @@
       color: rgb(var(--text-color-base) / .75);
     }
 
-    & figure {
+    & picture {
       position: absolute;
+      width: var(--picture-size);
+      height: var(--picture-size);
       top: .8ex;
       left: -5px;
+      border-radius: 50%;
+      overflow: hidden;
 
       & img {
-        border-radius: 50%;
-        width: 60px;
+        background: rgb(var(--text-color-base) / .1);
       }
     }
   }

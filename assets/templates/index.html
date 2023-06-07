@@ -1,17 +1,21 @@
 {% extends "base.html" %}
 
 {% set body_attrs = ['data-container', 'data-page-home'] %}
+{% set picture_size = 60 %}
+{% set portrait = picture(
+  'me.jpeg',
+  width=picture_size, height=picture_size, ratio=1.0, loading='eager'
+) %}
+{% set header_styles = {'picture-size': picture_size|string + 'px'} %}
 
 {% block scripts %}
 <script type="application/ld+json">{{ MAIN_JSON_LD|tojson }}</script>
 {% endblock %}
 
 {% block header %}
-<header role="banner">
+<header role="banner" {{ header_styles|cssvars }}>
   <h1>Arseny<br>Gabdullin</h1>
-  <figure class="portrait">
-    <img src="{{ static('me.webp') }}" width="100" height="100" alt="Arseny's photo">
-  </figure>
+  {{ portrait }}
   <p data-prop="occupation">Python developer & software architect</p>
   <p data-prop="location">Based in Belgrade, Serbia</p>
 </header>
