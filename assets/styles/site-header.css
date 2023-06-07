@@ -130,4 +130,8 @@
     background: var(--text-color);
     opacity: .75;
   }
+
+  & input:not(:checked) + label:active {
+    color: var(--link-hover-color);
+  }
 }

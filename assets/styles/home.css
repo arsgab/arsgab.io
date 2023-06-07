@@ -3,10 +3,6 @@
     margin: 2rem 0 3rem 0;
     position: relative;
 
-    @media (--mobile) {
-      margin: 1rem 0 2rem 0;
-    }
-
     & h1 {
       font-size: 4em;
       font-weight: 900;
@@ -39,11 +35,24 @@
     }
   }
 
+  & [data-color-theme-switch] {
+    opacity: .75;
+    font-weight: 600;
+
+    @media (--mobile) {
+      display: none;
+    }
+  }
+
+  & [data-color-theme-dropdown] {
+    background: rgb(0 0 0 / .1);
+  }
+
   & p {
     margin-bottom: .5rem;
   }
 
-  & ul {
+  & article ul {
     margin: 3rem 0;
     font-size: 1.2em;
 
@@ -57,18 +66,15 @@
       padding-right: 1.5rem;
       white-space: nowrap;
       color: rgb(var(--text-color-base) / .5);
-
-      @media (--mobile) {
-        padding-right: 1rem;
-      }
     }
 
     & li:not(:last-child)::after {
       content: "/";
       font-weight: 200;
       position: absolute;
-      margin-left: .4rem;
-      margin-top: -.4ex;
+      display: block;
+      right: .75rem;
+      top: -.25rem;
     }
 
     & a {
@@ -78,6 +84,12 @@
       &:hover {
         opacity: .75;
       }
+    }
+
+    & i {
+      font-size: .8em;
+      position: relative;
+      top: -.25rem;
     }
   }
 
