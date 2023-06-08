@@ -1,0 +1,20 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "{{ AUTHOR }}",
+  "alternateName": "Арсениj Габдулин",
+  "image": "https://avatars.githubusercontent.com/u/1730172",
+  "url": "https://{{ SITE_FQDN }}",
+  "jobTitle": "Software Engineer",
+  "alumniOf": "Saint Petersburg State University",
+  "gender": "male",
+  "sameAs": [
+    "https://www.linkedin.com/in/arsgab/",
+    "https://github.com/arsgab",
+    "https://instagram.com/arseny.ga",
+    "https://www.facebook.com/arsgab",
+    "https://twitter.com/arsgab",
+    "https://mastodon.online/@arsgab",
+    "https://www.strava.com/athletes/arsgab"
+  ]
+}

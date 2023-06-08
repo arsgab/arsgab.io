@@ -9,15 +9,15 @@
 {% set header_styles = {'picture-size': picture_size|string + 'px'} %}
 
 {% block scripts %}
-<script type="application/ld+json">{{ MAIN_JSON_LD|tojson }}</script>
+<script type="application/ld+json">{% include "schema.json" %}</script>
 {% endblock %}
 
 {% block header %}
 <header role="banner" {{ header_styles|cssvars }}>
   <h1>Arseny<br>Gabdullin</h1>
-  {{ portrait }}
   <p data-prop="occupation">Python developer & software architect</p>
   <p data-prop="location">Based in Belgrade, Serbia</p>
+  {{ portrait }}
 </header>
 {% include "partials/color-theme-switch.html" %}
 {% endblock header %}

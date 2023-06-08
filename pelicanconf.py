@@ -82,24 +82,3 @@ TRANSLATION_FEED_ATOM = None
 AUTHOR_FEED_ATOM = None
 AUTHOR_FEED_RSS = None
 DISPLAY_PAGES_ON_MENU = DISPLAY_CATEGORIES_ON_MENU = False
-
-# JSON-LD schema for website
-MAIN_JSON_LD = {
-    '@context': 'http://schema.org',
-    '@type': 'Person',
-    'name': AUTHOR,
-    'image': 'https://avatars.githubusercontent.com/u/1730172',
-    'url': f'https://{SITE_FQDN}',
-    'jobTitle': 'Software Engineer',
-    'alumniOf': 'Saint Petersburg State University',
-    'gender': 'male',
-    'sameAs': [
-        'https://www.linkedin.com/in/arsgab/',
-        'https://github.com/arsgab',
-        'https://instagram.com/arseny.ga',
-        'https://www.facebook.com/arsgab',
-        'https://twitter.com/arsgab',
-        'https://mastodon.online/@arsgab',
-        'https://www.strava.com/athletes/arsgab',
-    ],
-}
