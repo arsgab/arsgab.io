@@ -3,8 +3,8 @@ from random import randint
 from uuid import uuid4
 
 from jinja2 import Environment
-from pelican import ArticlesGenerator, signals
-from pelican.contents import Article
+from pelican import signals
+from pelican.generators import Generator
 
 from markup import renderer_ref
 from markup.processors.picture import render_picture_tag
@@ -40,18 +40,22 @@ FILTERS = {
 }
 
 
-def setup_jinja_env(generator: ArticlesGenerator) -> Environment:
-    generator.env.globals.update(GLOBALS)
-    generator.env.filters.update(FILTERS)
-    renderer_ref.set(generator.env)
-    return generator.env
+def customize_jinja_env(env: Environment) -> None:
+    env.lstrip_blocks = True
+    env.trim_blocks = True
+    env.globals.update(GLOBALS)
+    env.filters.update(FILTERS)
 
 
-def update_article_context(article_generator: ArticlesGenerator, content: Article) -> None:
-    ...
+def on_generators_preread(generator: Generator) -> None:
+    customize_jinja_env(generator.env)
+    try:
+        renderer_ref.get()
+    except LookupError:
+        # Set context variable value only once, on first lookup
+        renderer_ref.set(generator.env)
 
 
 def register() -> None:
-    signals.article_generator_preread.connect(setup_jinja_env)
-    signals.page_generator_preread.connect(setup_jinja_env)
-    signals.article_generator_write_article.connect(update_article_context)
+    for signal in (signals.article_generator_preread, signals.page_generator_preread):
+        signal.connect(on_generators_preread)

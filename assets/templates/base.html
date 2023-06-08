@@ -1,5 +1,5 @@
-{% from "partials/nav-header.html" import nav_header with context %}
-{% set style = static('style.css') %}
+{%- from "partials/nav-header.html" import nav_header with context -%}
+{%- set style = static('style.css') -%}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -27,44 +27,44 @@
 {% else %}
   <script defer src="{{ static('script.js') }}" fetchpriority="high"></script>
 {% endif %}
-  {% block styles %}{% endblock styles %}
-  {% block scripts %}{% endblock scripts %}
+  {%- block styles %}{% endblock styles -%}
+  {%- block scripts %}{% endblock scripts -%}
 
-  {% block stats %}
+  {%- block stats %}
   {% if STATS_WEBSITE_ID %}
   <script async src="{{ STATS_SCRIPTS_URL }}" data-website-id="{{ STATS_WEBSITE_ID }}"
           data-do-not-track="true"></script>
   {% endif %}
-  {% endblock stats %}
+  {% endblock stats -%}
 
 </head>
 <body {{ (body_attrs or ())|join(' ') }}>
 
-{% block header %}{% endblock header %}
+{%- block header %}{% endblock header -%}
 
-{% block main %}
+{%- block main %}
   <main>
-    {% block content required %}{% endblock %}
+    {%- block content required %}{% endblock -%}
   </main>
-{% endblock main %}
+{% endblock main -%}
 
-{% block complementary %}{% endblock complementary %}
+{%- block complementary %}{% endblock complementary -%}
 
-{% block footer %}
+{%- block footer %}
   <footer role="contentinfo" data-container>
     <p data-prop="sourcecode">
       <a data-umami-event="click-github-footer" href="https://github.com/{{ SITE_REPO }}/">View source code</a>
     </p>
-    {% block footer_copyright %}
+    {%- block footer_copyright %}
       <small data-prop="copyright">© {{ CURRENT_YEAR }} {{ AUTHOR }}</small>
-    {% endblock %}
-    {% block footer_contact %}
+    {% endblock -%}
+    {%- block footer_contact %}
       <small data-prop="contact">
         {{ mailto(address=AUTHOR_EMAIL_SECONDARY, text="Contact", attrs={'data-umami-event': 'click-email-footer'}) }}
       </small>
-    {% endblock %}
+    {% endblock -%}
   </footer>
-{% endblock footer %}
+{% endblock footer -%}
 
 </body>
 </html>
