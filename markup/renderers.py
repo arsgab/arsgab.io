@@ -11,7 +11,7 @@ from markup.processors.picture import render_picture_tag
 from pelicanconf import SITENAME
 from utils.datastructures import NavItem, dict_to_css_variables, filepath_to_dotnotation, remap
 from utils.staticfiles import get_static_url, inline_static_assets
-from utils.templating import render_page_metadata
+from utils.templating import render_obfuscated_mailto_link, render_page_metadata
 from utils.url import get_datafile_url, qualify_url
 
 NAVBAR = [
@@ -29,6 +29,7 @@ GLOBALS = {
     'static_inline': inline_static_assets,
     'picture': render_picture_tag,
     'pagemeta': render_page_metadata,
+    'mailto': render_obfuscated_mailto_link,
 }
 
 FILTERS = {

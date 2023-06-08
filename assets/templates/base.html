@@ -57,7 +57,9 @@
       <small data-prop="copyright">© {{ CURRENT_YEAR }} {{ AUTHOR }}</small>
     {% endblock %}
     {% block footer_contact %}
-      <small data-prop="contact"><a href="mailto:{{ AUTHOR_EMAIL_SECONDARY }}">{{ AUTHOR_EMAIL_SECONDARY }}</a></small>
+      <small data-prop="contact">
+        {{ mailto(address=AUTHOR_EMAIL_SECONDARY, text="Contact", attrs={'data-umami-event': 'click-email-footer'}) }}
+      </small>
     {% endblock %}
   </footer>
 {% endblock footer %}

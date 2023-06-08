@@ -1,11 +1,12 @@
+from base64 import b64encode
 from typing import NamedTuple
 
-from jinja2 import pass_context
-from jinja2.filters import do_mark_safe
-from jinja2.runtime import Context
+from jinja2 import pass_context, pass_eval_context
+from jinja2.filters import do_mark_safe, do_xmlattr
+from jinja2.runtime import Context, EvalContext
 
 from markup import renderer_ref
-from pelicanconf import DEFAULT_OG_IMAGE, SITEDESC, SITENAME
+from pelicanconf import AUTHOR_EMAIL, DEFAULT_OG_IMAGE, SITEDESC, SITENAME
 
 from .media import get_processed_media_url
 
@@ -80,3 +81,34 @@ class PageMetadata(NamedTuple):
 def render_page_metadata(ctx: Context) -> str:
     metadata = PageMetadata.from_context(ctx)
     return render_template_partial('pagemeta', {'meta': metadata})
+
+
+@pass_eval_context
+def render_obfuscated_mailto_link(
+    ctx: EvalContext,
+    address: str = AUTHOR_EMAIL,
+    text: str = 'Email',
+    href: str = '#',
+    attrs: dict = None,
+) -> str:
+    attrs = (attrs or {}) | {'data-hidden-mailto': 'true'}
+    return render_obfuscated_link(ctx, f'mailto:{address}', text, href=href, attrs=attrs)
+
+
+def render_obfuscated_link(
+    ctx: EvalContext,
+    url: str,
+    text: str,
+    href: str = '#',
+    attrs: dict = None,
+) -> str:
+    obfuscated = _obfuscate_string(url)
+    attrs = (attrs or {}) | {'data-hidden-href': obfuscated}
+    attrs = do_xmlattr(ctx, attrs)
+    link = f'<a href="{href}" {attrs}>{text}</a>'
+    return do_mark_safe(link)
+
+
+def _obfuscate_string(string: str) -> str:
+    encoded = b64encode(string.encode())
+    return encoded.decode()

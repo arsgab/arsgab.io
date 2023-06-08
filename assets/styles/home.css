@@ -14,15 +14,6 @@
       left: -.1em;
     }
 
-    & p[data-prop=occupation] {
-      font-size: 1.5em;
-      line-height: 1;
-    }
-
-    & p[data-prop=location] {
-      color: rgb(var(--text-color-base) / .75);
-    }
-
     & picture {
       position: absolute;
       width: var(--picture-size);
@@ -31,10 +22,10 @@
       left: -5px;
       border-radius: 50%;
       overflow: hidden;
+    }
 
-      & img {
-        background: rgb(var(--text-color-base) / .1);
-      }
+    & img {
+      background: rgb(var(--text-color-base) / .1);
     }
   }
 
@@ -53,6 +44,19 @@
 
   & p {
     margin-bottom: .5rem;
+
+    &[data-prop=occupation] {
+      font-size: 1.5em;
+      line-height: 1;
+    }
+
+    &[data-prop=location] {
+      color: rgb(var(--text-color-base) / .75);
+    }
+
+    &[data-prop=contact] {
+      margin-top: 2rem;
+    }
   }
 
   & article ul {

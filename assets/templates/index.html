@@ -24,9 +24,13 @@
 
 {% block content %}
 <article>
-  <p data-prop="bio">Running, cycling, traveling — and <a href="https://photos.arsgab.io"
-                                                        data-umami-event="click-photosite">making photos</a> of it.</p>
-  <p>Drop me a line <small>→</small> <a href="mailto:{{ AUTHOR_EMAIL }}">{{ AUTHOR_EMAIL }}</a></p>
+  <p data-prop="bio">
+    Running, cycling, traveling — and
+    <a href="https://photos.arsgab.io" data-umami-event="click-photosite">making photos</a> of it.
+  </p>
+  <p data-prop="contact">
+    {{ mailto(text="Drop me a line", attrs={'data-umami-event': 'click-email-homepage'}) }}
+  </p>
   {% include "partials/social-links.html" %}
 </article>
 {% endblock %}

@@ -8,6 +8,7 @@ footer[role=contentinfo] {
 
   & small {
     --text-color: rgb(var(--text-color-base) / .75);
+    --link-hover-color: rgb(var(--text-color-base) / .9);
     font-size: .8em;
 
     &:not(:last-child) {
@@ -18,8 +19,12 @@ footer[role=contentinfo] {
       }
     }
 
-    & a {
+    & a:link, & a:visited {
       color: var(--text-color);
+
+      &::before {
+        margin-top: .2rem;
+      }
     }
   }
 }

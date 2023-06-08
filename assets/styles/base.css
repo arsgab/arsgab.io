@@ -41,4 +41,21 @@ a {
   &:hover {
     color: var(--link-hover-color);
   }
+
+  &[href^="mailto:"], &[data-hidden-mailto] {
+    white-space: nowrap;
+    padding-left: 1rem;
+
+    &::before {
+      content: "@";
+      position: absolute;
+      margin-left: -1rem;
+      color: rgb(var(--text-color-base) / .5);
+      font-weight: 600;
+    }
+
+    &:hover::before {
+      color: var(--link-hover-color);
+    }
+  }
 }
