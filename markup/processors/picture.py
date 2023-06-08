@@ -33,6 +33,11 @@ class Picture(Shortcode):
         LAZY = 'lazy'
         EAGER = 'eager'
 
+    class Priority(StrEnum):
+        HIGH = 'high'
+        LOW = 'low'
+        AUTO = 'auto'
+
     class Orientation(StrEnum):
         LANDSCAPE = 'landscape'
         PORTRAIT = 'portrait'
@@ -133,7 +138,7 @@ def render_picture_tag(
     width: int | None = None,
     height: int | None = None,
     ratio: float = PICTURE_DEFAULT_RATIO,
-    loading: str = 'lazy',
+    loading: str = Picture.Loading.LAZY,
     **kwargs: Any,
 ) -> str:
     if not any((width, height)):
@@ -150,10 +155,14 @@ def render_picture_tag(
         'media_query': '(min-width: 0px)',
     }
     fallback = get_processed_media_url(src, width=width, height=height, ext='jpg', **kwargs)
+    fetch_priority = (
+        Picture.Priority.HIGH if loading == Picture.Loading.EAGER else Picture.Priority.AUTO
+    )
     ctx = {
         'sources': (source,),
         'fallback': fallback,
         'loading': loading,
+        'fetch_priority': fetch_priority,
         'ratio': ratio,
         'dimensions': (width, height),
     }
