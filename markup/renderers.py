@@ -10,6 +10,7 @@ from markup import renderer_ref
 from markup.processors.picture import render_picture_tag
 from pelicanconf import SITENAME
 from utils.datastructures import NavItem, dict_to_css_variables, filepath_to_dotnotation, remap
+from utils.schematize import generate_schema_for_article
 from utils.staticfiles import get_static_url, inline_static_assets
 from utils.templating import render_obfuscated_mailto_link, render_page_metadata
 from utils.url import get_datafile_url, qualify_url
@@ -29,6 +30,7 @@ GLOBALS = {
     'static_inline': inline_static_assets,
     'picture': render_picture_tag,
     'pagemeta': render_page_metadata,
+    'schema': generate_schema_for_article,
     'mailto': render_obfuscated_mailto_link,
 }
 

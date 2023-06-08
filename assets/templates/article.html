@@ -27,6 +27,10 @@
   gravity='so', rt='fill-down'
 ) %}
 
+{% block scripts %}
+<script type="application/ld+json">{{ schema(article)|tojson }}</script>
+{% endblock %}
+
 {% block header %}{{ nav_header(text_color=cover.text_color) }}{% endblock %}
 
 {% block content %}

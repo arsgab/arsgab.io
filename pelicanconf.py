@@ -12,6 +12,7 @@ AUTHOR_EMAIL = env.get('AUTHOR_EMAIL') or 'mail@arsgab.io'
 AUTHOR_EMAIL_SECONDARY = env.get('AUTHOR_EMAIL_SECONDARY') or 'me@arsgab.io'
 SITENAME = env.get('SITENAME') or AUTHOR
 SITE_FQDN = env.get('SITE_FQDN') or 'arsgab.io'
+SITE_LANG = env.get('SITE_LANG') or 'en-GB'
 SITEDESC = env.get('SITEDESC') or 'OFFICIAL WEBSITE'
 TIMEZONE = env.get('TIMEZONE') or 'Europe/Belgrade'
 STATS_SCRIPTS_URL = env.get('STATS_SCRIPTS_URL') or 'https://stat.arsgab.io/stonks'
@@ -25,6 +26,7 @@ COMMENTS_COLOR_THEME = 'preferred-color-scheme'
 # Build setup
 OUTPUT_PATH = BASE_PATH / 'dist'
 PATH = 'articles'
+CONTENT_PATH = BASE_PATH / PATH
 ARTICLE_URL = '/articles/{slug}'
 ARTICLE_SAVE_AS = PATH + '/{slug}.html'
 PAGE_URL = '/{slug}'

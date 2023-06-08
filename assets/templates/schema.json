@@ -4,7 +4,7 @@
   "name": "{{ AUTHOR }}",
   "alternateName": "Арсениj Габдулин",
   "image": "https://avatars.githubusercontent.com/u/1730172",
-  "url": "https://{{ SITE_FQDN }}",
+  "url": "{{ '/'|qualify }}",
   "jobTitle": "Software Engineer",
   "alumniOf": "Saint Petersburg State University",
   "gender": "male",
