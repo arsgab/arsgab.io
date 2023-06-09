@@ -8,6 +8,7 @@ from pelican.generators import Generator
 
 from markup import renderer_ref
 from markup.processors.picture import render_picture_tag
+from markup.processors.typography import typographed
 from pelicanconf import SITENAME
 from utils.datastructures import NavItem, dict_to_css_variables, filepath_to_dotnotation, remap
 from utils.schematize import generate_schema_for_article
@@ -39,6 +40,7 @@ FILTERS = {
     'cssvars': dict_to_css_variables,
     'remap': remap,
     'asdot': filepath_to_dotnotation,
+    'tpgr': typographed,
 }
 
 

@@ -3,30 +3,49 @@ from markdown.postprocessors import Postprocessor
 from typus.core import TypusCore
 from typus.processors import EnQuotes, EnRuExpressions, EscapeHtml, EscapePhrases
 
-
-class TypusExpressions(EnRuExpressions):
-    expressions = (
-        'spaces',
-        'primes',
-        'digit_spaces',
-        'pairs',
-        'units',
-        'ranges',
-        'vulgar_fractions',
-        'math',
-    )
+THINSPACE = '\N{THIN SPACE}'
+NBSPACE = '\N{NO-BREAK SPACE}'
+EMDASH = '\N{EM DASH}'
+ENDASH = '\N{EN DASH}'
+HYPHEN = '\N{HYPHEN}'
 
 
 class Typus(TypusCore):
-    processors = (
-        EscapePhrases,
-        EscapeHtml,
-        EnQuotes,
-        TypusExpressions,
-    )
+    class Expr(EnRuExpressions):
+        expressions = (
+            'spaces',
+            'primes',
+            'digit_spaces',
+            'pairs',
+            'units',
+            'ranges',
+            'vulgar_fractions',
+            'math',
+        )
+
+    @staticmethod
+    def thinspaced_mdash(text: str) -> str:
+        text = text.replace(f' {EMDASH} ', f'{THINSPACE}{EMDASH}{THINSPACE}')
+        return text
+
+    @staticmethod
+    def format_smiles(text: str) -> str:
+        for smile in (':-)', ':-('):
+            smile_welldone = smile.replace(HYPHEN, ENDASH)
+            text = text.replace(f' {smile}', f'{NBSPACE}{smile_welldone}')
+        return text
+
+    processors = (EscapePhrases, EscapeHtml, EnQuotes, Expr)
 
 
-typographed = Typus()
+_typographed = Typus()
+
+
+def typographed(text: str) -> str:
+    text = _typographed(text)
+    text = _typographed.thinspaced_mdash(text)
+    text = _typographed.format_smiles(text)
+    return text
 
 
 class TypographyPostprocesor(Postprocessor):
