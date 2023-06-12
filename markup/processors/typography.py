@@ -7,7 +7,7 @@ THINSPACE = '\N{THIN SPACE}'
 NBSPACE = '\N{NO-BREAK SPACE}'
 EMDASH = '\N{EM DASH}'
 ENDASH = '\N{EN DASH}'
-HYPHEN = '\N{HYPHEN}'
+HYPHEN = '-'
 
 
 class Typus(TypusCore):
@@ -38,13 +38,13 @@ class Typus(TypusCore):
     processors = (EscapePhrases, EscapeHtml, EnQuotes, Expr)
 
 
-_typographed = Typus()
+_typus = Typus()
 
 
 def typographed(text: str) -> str:
-    text = _typographed(text)
-    text = _typographed.thinspaced_mdash(text)
-    text = _typographed.format_smiles(text)
+    text = _typus(text)
+    text = _typus.thinspaced_mdash(text)
+    text = _typus.format_smiles(text)
     return text
 
 
