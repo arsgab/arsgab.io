@@ -1,6 +1,6 @@
 const INTERSECTION_THRESHOLDS = [0.25];
 
-window.addEventListener('load', () => {
+window.addEventListener('DOMContentLoaded', () => {
   let figures = document.querySelectorAll('article figure');
   let umami = window.umami || null;
 

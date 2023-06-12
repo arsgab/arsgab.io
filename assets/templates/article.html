@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% set body_attrs = ['data-page-article'] %}
+{% set article_attrs = {'data-slug': article.slug} %}
 
 {% set cover = article.cover|remap %}
 {% set header_styles = {
@@ -34,7 +35,7 @@
 {% block header %}{{ nav_header(text_color=cover.text_color) }}{% endblock %}
 
 {% block content %}
-  <article>
+  <article {{ article_attrs|xmlattr }}>
     <header {{ header_styles|cssvars }}>
       <div data-container>
         <h1 data-prop="title">
@@ -48,9 +49,7 @@
       <div data-article-cover {{ cover_styles|cssvars }}>{{ cover_picture }}</div>
     </header>
     {% if article.lead %}<p data-prop="lead" data-container>{{ article.lead|tpgr }}</p>{% endif %}
-    <div data-prop="content" data-container>
-      {{ article.content }}
-    </div>
+    <div data-prop="content" data-container>{{ article.content }}</div>
     <footer data-container>
       {{ footer_picture }}
       <p>{{ footer.text|tpgr }}</p>

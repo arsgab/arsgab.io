@@ -172,6 +172,15 @@ article [data-prop=content] {
         margin-right: .25em;
       }
     }
+
+    & p {
+      width: 100%;
+      margin: 0;
+
+      & + p {
+        margin-top: 1rem;
+      }
+    }
   }
 
 // Inlines
@@ -213,6 +222,14 @@ nav[data-article-toc] {
   user-select: none;
   font-size: .8em;
   padding-top: 1ex;
+  opacity: 0;
+  transform: translateY(1rem);
+  transition: opacity .5s ease-in-out, transform .5s ease-in-out;
+
+  &[data-visible=true] {
+    opacity: 1;
+    transform: translateY(0);
+  }
 
   @media (--hide-toc) {
     display: none;
@@ -222,6 +239,14 @@ nav[data-article-toc] {
     font-weight: 900;
     color: rgb(var(--text-color-base) / .4);
     margin-bottom: .5rem;
+    position: relative;
+
+    &::before {
+      content: "¶";
+      position: absolute;
+      margin: -.05rem 0 0 -1em;
+      color: rgb(var(--text-color-base) / .2);
+    }
   }
 
   & a {
