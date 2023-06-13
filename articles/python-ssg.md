@@ -1,10 +1,11 @@
 ---
-title: Building statically generated photo site with Python
+title: Building static generated photo site with Python
 title_label: how-to
 subtitle: And deploying it via GitHub Actions
-lead: For years, I was mostly dissatisfied with a process of publishing content in the internet (well, along with many other internet-related things).
+lead: For years, I was mostly dissatisfied with a process of publishing any content in the internet (well, along with many other internet-related things).
 slug: python-ssg
 date: 2023-06-01
+comments: on
 cover:
     bg_color: #333
     text_color: orange
@@ -16,22 +17,28 @@ footer:
     text: Cover image by <cite>Gerd Arntz</cite>
 ---
 
-Basically you have two options to do this: to use some established content platform (and to depend on its vendor) or to setup
-your own (and to handle all infrastructure complexity).
+You have, mostly, two options if you want to publish something to the Web: to use some established content platform — and fully depend on its vendor, or to setup
+your own — and, consequently, to maintain all infrastructural complexity.
 
-## [#goals] Primary goals
+So, as a proof of concept, I wanted to find some kind of compromise, to create personal publishing micro-platform, where I could have full control over my content, but without need to manually spin up virtual machines or to fix issues after next minor Kubernetes updates or to handle with deployment environment in any other way.
+
+Long story short: after month of cycling in Türkiye, I had a lot of photos that I liked and wanted to be presented not only in Instagram (at least, because many of it were in landscape orientation :-). As a result, I've made **[photos.arsgab.io](https://photos.arsgab.io)** — and actively filling it up for several months with pictures from my last travels. I can definitely say now that I am satisfied with a "platform" I've built, and in this article I would like to cover some technical decisions and solutions that were made during the development.
+
+[aside]
+It's also needed to say that I was inspired by [this awesome website](https://photos.cherenkevich.com){: target="_blank" rel="noopener"} made by Aleksey Cherenkevich and adopted a lot of ideas from it
+[/aside]
+
+## {#concepts} Key concepts
 
 - to build simple publishing platform,
 - DX as internal priority,
 - client performance as a "product" metric (aka "Green PageSpeed/Lighthouse")
 
-[screencast src="ssg/screencast" bordered]
-
-## [#engine] Chosing SSG engine
+## {#engine} Chosing SSG engine
 
 (some words about chosing Pelican and why)
 
-## [#images] Handling images
+## {#images} Handling images
 
 OK, this is a tricky part. To deliver your images to your reader in a proper way, you need a bunch of stuff:
 
@@ -43,27 +50,29 @@ OK, this is a tricky part. To deliver your images to your reader in a proper way
 
 Let's see, what to do with it step-by-step.
 
-### [#images-storage] The storage
+### {#images-storage} The storage
 
 (NextCloud + CloudFlare stuff)
 
-### [#images-processor] The processor server
+### {#images-processor} The processor server
 
 (imgproxy setup)
 
-### [#images-codegen] The code generator
+### {#images-codegen} The code generator
 
 (`[pic]` and MarkDown block parser)
 
-## [#static] Handling static files
+## {#static} Handling static files
 
 (CLI-only postcss + terser setup, hashsum manifest.json generation)
 
-## [#deploy] Deployment
+## {#details} Last details
+
+## {#deploy} Deployment
 
 (Some words about GitHub Actions and deployment into Pages)
 
-## [#results] Results
+## {#results} Results
 
 Full control over publishing process, high-speed "releases", most time for "creative" work (layout, build editorial).
 
