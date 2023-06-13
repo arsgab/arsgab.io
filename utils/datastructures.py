@@ -2,12 +2,12 @@ from enum import Enum
 from os.path import splitext
 from subprocess import PIPE, Popen
 from sys import stdout
-from typing import Iterable, NamedTuple
+from typing import Iterable, Iterator, NamedTuple
 
 
 class StrEnum(str, Enum):
     def __str__(self) -> str:
-        return self.value
+        return str(self.value)
 
 
 class NavItem(NamedTuple):
@@ -20,9 +20,11 @@ class NavItem(NamedTuple):
         return output_file == self.file
 
 
-def remap(pairs: Iterable[str], delimiter: str = ':') -> dict[str, str]:
-    values: Iterable[tuple] = (
-        tuple(map(str.strip, pair.split(delimiter))) for pair in (pairs or ()) if pair
+def remap(pairs: Iterable[str] | None, delimiter: str = ':') -> dict[str, str]:
+    pairs = (pair for pair in pairs or () if pair)
+    split_pairs: Iterator[list[str]] = (pair.split(delimiter)[:2] for pair in pairs)
+    values: Iterator[tuple[str, str]] = (  # noqa
+        tuple(map(str.strip, pair)) for pair in split_pairs  # type: ignore
     )
     return dict(values)
 
@@ -40,7 +42,7 @@ def filepath_to_dotnotation(filepath: str) -> str:
 def run_subprocess_and_log_stdout(cmd: str) -> None:
     with Popen(cmd, shell=True, stdout=PIPE) as proc:
         while True:
-            proc_stdout = proc.stdout.read().decode('utf-8')
+            proc_stdout = proc.stdout.read().decode('utf-8')  # type: ignore
             stdout.write(proc_stdout)
             if proc.poll() is not None:
                 break

@@ -44,6 +44,7 @@ def get_processed_media_url(
     encode_source_url: bool = not IMGPROXY_PLAIN_SOURCE_URL,
     sign: bool = True,
     ext: str = 'webp',
+    /,
     **options: Any,
 ) -> str:
     if not source_url_or_path:
@@ -62,7 +63,7 @@ def get_processed_media_url(
     return f'https://{IMGPROXY_FQDN}/{signature}{path}'
 
 
-def get_resized_image_url(source_url: str, width: int, ext: str = 'webp', **extra: Any) -> str:
+def get_resized_image_url(source_url: str, width: int, /, ext: str = 'webp', **extra: Any) -> str:
     return get_processed_media_url(source_url, w=width, ext=ext, **extra)
 
 
@@ -74,13 +75,13 @@ class ImageDimensions(NamedTuple):
     def extract_from_filename(cls, filename: str) -> Optional['ImageDimensions']:
         match = SIZED_IMAGE_FILENAME_PATTERN.match(filename)
         if match is None:
-            return
+            return None
         matched_groups = match.groupdict()
         try:
             width = int(matched_groups['width'])
             height = int(matched_groups['height'])
         except ValueError:
-            return
+            return None
         return cls(width, height)
 
     @classmethod
@@ -120,14 +121,16 @@ class ImageResizeSet:
     def __init__(
         self,
         source_url: str,
-        source_width: int | None = MAX_SOURCE_WIDTH,
-        max_width: int | None = MAX_IMAGE_WIDTH,
-        breakpoints: Iterable[int] | None = DEFAULT_BREAKPOINTS,
-        **processing_options: Any,
+        source_width: int | None = None,
+        max_width: int | None = None,
+        breakpoints: Iterable[int] | None = None,
+        processing_options: dict | None = None,
     ):
+        processing_options = processing_options or {}
         self.source_url = source_url
-        self.source_width = source_width
-        self.max_width = max_width
+        self.source_width = source_width or MAX_SOURCE_WIDTH
+        self.max_width = max_width or MAX_IMAGE_WIDTH
+        breakpoints = breakpoints or DEFAULT_BREAKPOINTS
         self.sources = tuple(self.get_resizes(breakpoints=breakpoints, **processing_options))
         self.fallback = self.get_fallback(max_width=max_width, ext='jpg', **processing_options)
 
@@ -144,7 +147,7 @@ class ImageResizeSet:
         # Single resized image source requested, no intermediate resizes
         if breakpoints is None:
             srcset = (
-                get_resized_image_url(self.source_url, width=self.max_width, **params),
+                get_resized_image_url(self.source_url, self.max_width, **params),  # type: ignore
                 *self._get_factors(self.max_width, factors, **params),
             )
             yield ImageResize(self.max_width, srcset, condition='any')
@@ -154,7 +157,7 @@ class ImageResizeSet:
         last_resize = None
         for bp in relevant_breakpoints:
             srcset = (
-                get_resized_image_url(self.source_url, width=bp, **params),
+                get_resized_image_url(self.source_url, bp, **params),  # type: ignore
                 *self._get_factors(bp, factors, **params),
             )
             last_resize = ImageResize(bp, srcset, previous=last_resize)
@@ -162,7 +165,7 @@ class ImageResizeSet:
 
         factored = self._get_factors(self.max_width, factors, **params)
         srcset = (
-            get_resized_image_url(self.source_url, width=MAX_IMAGE_WIDTH, **params),
+            get_resized_image_url(self.source_url, MAX_IMAGE_WIDTH, **params),  # type: ignore
             *factored,
         )
         yield ImageResize(
@@ -181,11 +184,12 @@ class ImageResizeSet:
             factored_width = width * factor
             if self.source_width <= factored_width:
                 continue
-            src = get_resized_image_url(self.source_url, width=factored_width, **extra)
+            src = get_resized_image_url(self.source_url, factored_width, **extra)
             yield f'{src} {factor}x'
 
-    def get_fallback(self, max_width: int | None = MAX_IMAGE_WIDTH, **kwargs: Any) -> str:
-        return get_resized_image_url(self.source_url, width=max_width, **kwargs)
+    def get_fallback(self, max_width: int | None = None, **kwargs: Any) -> str:
+        max_width = max_width or MAX_IMAGE_WIDTH
+        return get_resized_image_url(self.source_url, max_width, **kwargs)
 
 
 def _qualify_source_media_url(source_url: str) -> str:
@@ -194,7 +198,7 @@ def _qualify_source_media_url(source_url: str) -> str:
     # It's not an extension, it's dimensions part...
     if img_ext and len(img_ext) > 5:
         img_base = f'{img_base}{img_ext}'
-        img_ext = None
+        img_ext = ''
 
     source_url = img_base + (img_ext or IMAGE_DEFAULT_EXT)
     if source_url.startswith('http'):
@@ -204,8 +208,8 @@ def _qualify_source_media_url(source_url: str) -> str:
 
 
 def _encode_source_media_url(source_url: str) -> str:
-    source_url = urlsafe_b64encode(source_url.encode()).rstrip(b'=')
-    return '/'.join(wrap(source_url.decode(), 16))
+    source_url_encoded = urlsafe_b64encode(source_url.encode()).rstrip(b'=')
+    return '/'.join(wrap(source_url_encoded.decode(), 16))
 
 
 def _generate_image_path_signature(path: str) -> bytes:

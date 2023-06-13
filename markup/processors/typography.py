@@ -1,4 +1,6 @@
-from markdown.extensions import Extension
+from typing import Any
+
+from markdown import Extension, Markdown
 from markdown.postprocessors import Postprocessor
 from typus.core import TypusCore
 from typus.processors import EnQuotes, EnRuExpressions, EscapeHtml, EscapePhrases
@@ -53,9 +55,10 @@ class TypographyPostprocesor(Postprocessor):
         return typographed(text)
 
 
-def makeExtension(**kwargs) -> Extension:  # noqa
+def makeExtension(**kwargs: Any) -> Extension:  # noqa
     class TypographyExtension(Extension):
-        def extendMarkdown(self, md) -> None:
-            md.postprocessors.register(TypographyPostprocesor(md.parser), 'typography', 999)
+        def extendMarkdown(self, md: Markdown) -> None:
+            postprocessor = TypographyPostprocesor(md.parser)  # type: ignore
+            md.postprocessors.register(postprocessor, 'typography', 999)
 
     return TypographyExtension(**kwargs)

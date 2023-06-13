@@ -44,8 +44,9 @@ class Picture(Shortcode):
 
     def feed(self, data: str) -> None:
         super().feed(data)
-        self.src = self.attrs.get('src')
-        if not self.src:
+        try:
+            self.src = self.attrs['src']
+        except KeyError:
             return
 
         # Extract dimensions from filename or create fake from predefined ratio
@@ -83,11 +84,15 @@ class Picture(Shortcode):
         return xml_from_string(rendered)
 
     def get_resizes(self) -> ImageResizeSet:
-        processing_options = {}
+        processing_options: dict[str, str] = {}
         version = self.attrs.get('v')
         if version:
             processing_options.update(cachebuster=f'v{version}')
-        return ImageResizeSet(self.src, source_width=self.dimensions.width, **processing_options)
+        return ImageResizeSet(
+            self.src,
+            source_width=self.dimensions.width,
+            processing_options=processing_options,
+        )
 
     def get_context(self) -> dict:
         eager = self.attrs.get('lazy') == 'false' or 'eager' in self.attrs
@@ -135,8 +140,8 @@ makeExtension = PictureProcessor.register()
 # TODO: refactor this block
 def render_picture_tag(
     src: str,
-    width: int | None = None,
-    height: int | None = None,
+    width: int = 0,
+    height: int = 0,
     ratio: float = PICTURE_DEFAULT_RATIO,
     loading: str = Picture.Loading.LAZY,
     **kwargs: Any,

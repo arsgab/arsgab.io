@@ -1,26 +1,25 @@
 from html.parser import HTMLParser
 from re import DOTALL, compile as re_compile
-from typing import Callable, Match, Type
+from typing import Any, Callable, Match, Type
 from xml.etree.ElementTree import Element
 
+from markdown import Extension, Markdown
 from markdown.blockprocessors import BlockProcessor
-from markdown.extensions import Extension
 
 
 class Shortcode(HTMLParser):
     self_closing: bool
     required_attrs: set[str] = set()
-    self_closing: bool = False
     attrs: dict[str, str]
     _tagname: str
     _inner_content: str
 
-    def __init_subclass__(cls, self_closing: bool = True, **kwargs) -> None:
+    def __init_subclass__(cls, self_closing: bool = True, **kwargs: Any) -> None:
         cls.self_closing = self_closing
         super().__init_subclass__(**kwargs)
 
-    def handle_starttag(self, tag: str, attrs: list[tuple[str, str]]) -> None:
-        self.attrs = dict(attrs) if tag == self._tagname else {}
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        self.attrs = dict(attrs) if tag == self._tagname else {}  # type: ignore
 
     def handle_data(self, data: str) -> None:
         self._inner_content = data or ''
@@ -43,7 +42,7 @@ class ShortcodeProcessor(BlockProcessor):
             pattern = rf'^\[{self.name}(?P<attrs>.*?)\](?P<inner>.*?)\[\/{self.name}\]$'
             flags = DOTALL
         regex = re_compile(pattern, flags=flags)
-        self._match = regex.match(block)
+        self._match = regex.match(block)  # type: ignore
         return bool(self._match)
 
     def run(self, parent: Element, blocks: list[str]) -> bool:
@@ -67,9 +66,9 @@ class ShortcodeProcessor(BlockProcessor):
 
     @classmethod
     def register(cls, priority: int = 999) -> Callable:
-        def handler(**kwargs):
+        def handler(**kwargs: Any) -> Extension:
             class ExtensionClass(Extension):
-                def extendMarkdown(self, md) -> None:
+                def extendMarkdown(self, md: Markdown) -> None:
                     md.parser.blockprocessors.register(cls(md.parser), cls.name, priority)
 
             return ExtensionClass(**kwargs)

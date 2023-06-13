@@ -9,7 +9,7 @@ from .schematize import PageMetadata
 from .url import obfuscate_string
 
 
-def render_template(template_name: str, ctx: dict = None) -> str:
+def render_template(template_name: str, ctx: dict | None = None) -> str:
     renderer = renderer_ref.get()
     if not template_name.endswith('.html'):
         template_name = f'{template_name}.html'
@@ -19,7 +19,7 @@ def render_template(template_name: str, ctx: dict = None) -> str:
     return do_mark_safe(rendered)
 
 
-def render_template_partial(partial_name: str, ctx: dict = None) -> str:
+def render_template_partial(partial_name: str, ctx: dict | None = None) -> str:
     return render_template(f'partials/{partial_name}', ctx=ctx)
 
 
@@ -35,7 +35,7 @@ def render_obfuscated_mailto_link(
     address: str = AUTHOR_EMAIL,
     text: str = 'Email',
     href: str = '#',
-    attrs: dict = None,
+    attrs: dict | None = None,
 ) -> str:
     attrs = (attrs or {}) | {'data-hidden-mailto': 'true'}
     return render_obfuscated_link(ctx, f'mailto:{address}', text, href=href, attrs=attrs)
@@ -46,10 +46,10 @@ def render_obfuscated_link(
     url: str,
     text: str,
     href: str = '#',
-    attrs: dict = None,
+    attrs: dict | None = None,
 ) -> str:
     obfuscated = obfuscate_string(url)
     attrs = (attrs or {}) | {'data-hidden-href': obfuscated}
-    attrs = do_xmlattr(ctx, attrs)
+    attrs = do_xmlattr(ctx, attrs)  # type: ignore
     link = f'<a href="{href}" {attrs}>{text}</a>'
     return do_mark_safe(link)

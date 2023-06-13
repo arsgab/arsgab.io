@@ -30,8 +30,9 @@ class Screencast(Shortcode):
         src, _ = splitext(self.attrs['src'])
         eager = self.attrs.get('lazy') == 'false' or 'eager' in self.attrs
         try:
-            width, height = int(self.attrs.get('width')), int(self.attrs.get('height'))
-            ratio = round(width / height, 3)
+            width, height = int(self.attrs.get('width'))  # type: ignore
+            height = int(self.attrs.get('height'))  # type: ignore
+            ratio = round(width / height, 3)  # type: ignore
         except (ValueError, TypeError):
             width, height = VIDEO_DEFAULT_WIDTH, VIDEO_DEFAULT_HEIGHT
             ratio = VIDEO_DEFAULT_RATIO

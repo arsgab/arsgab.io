@@ -42,7 +42,7 @@ def get_staticfiles_manifest() -> dict[str, str]:
         return {}
     manifest_text = STATIC_MANIFEST.read_text()
     try:
-        return json_loads(manifest_text)
+        return json_loads(manifest_text)  # type: ignore
     except ValueError:
         return {}
 

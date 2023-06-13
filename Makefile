@@ -66,6 +66,7 @@ fmt:
 lint:
 	$(VENV)/bin/ruff .
 	$(VENV)/bin/black --check .
+	$(VENV)/bin/mypy markup utils
 
 static:
 	npm run build

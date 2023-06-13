@@ -1,8 +1,8 @@
 from re import compile as re_compile
-from typing import Iterable, Iterator
+from typing import Any, Iterable, Iterator
 from xml.etree.ElementTree import Element, fromstring as xml_from_string
 
-from markdown.extensions import Extension
+from markdown import Extension, Markdown
 from markdown.treeprocessors import Treeprocessor
 
 from utils import render_template_partial
@@ -22,7 +22,7 @@ class HeadingIdProcessor(Treeprocessor):
 
     def add_headings_anchors(self, headings: Iterable[Element]) -> Iterator[tuple[str, str]]:
         for heading in headings:
-            match = self.REGEX.match(heading.text)
+            match = self.REGEX.match(heading.text or '')
             if not match:
                 continue
             match_groups = match.groupdict()
@@ -36,9 +36,10 @@ class HeadingIdProcessor(Treeprocessor):
                 yield idx, text
 
 
-def makeExtension(**kwargs) -> Extension:  # noqa
+def makeExtension(**kwargs: Any) -> Extension:  # noqa
     class HeadingExtension(Extension):
-        def extendMarkdown(self, md) -> None:
-            md.treeprocessors.register(HeadingIdProcessor(md.parser), 'heading_id', 998)
+        def extendMarkdown(self, md: Markdown) -> None:
+            processor = HeadingIdProcessor(md.parser)  # type: ignore
+            md.treeprocessors.register(processor, 'heading_id', 998)
 
     return HeadingExtension(**kwargs)
