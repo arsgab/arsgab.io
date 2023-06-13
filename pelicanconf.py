@@ -61,6 +61,7 @@ _PROCESSORS = ['aside', 'picture', 'screencast', 'heading', 'typography']
 MARKDOWN = {
     'extension_configs': {
         'markdown.extensions.meta': {},
+        'markdown.extensions.attr_list': {},
         'markdown.extensions.abbr': {},
         'markdown.extensions.md_in_html': {},
         **{f'markup.processors.{processor}': {} for processor in _PROCESSORS},
