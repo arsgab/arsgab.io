@@ -10,7 +10,9 @@ from utils import render_template_partial
 
 class HeadingIdProcessor(Treeprocessor):
     HEADINGS_TAGS = {'h2', 'h3'}
+    TOC_TAGS = {'h2'}
     REGEX = re_compile(r'\{#(?P<idx>[\w-]+)\}(?P<text>.+)')
+    ANCHOR_FMT = '<a href="#{id}" tabindex="-1">{symbol}</a>'
     ANCHOR_SYMBOL = '¶'
 
     def run(self, root: Element) -> None:
@@ -30,9 +32,11 @@ class HeadingIdProcessor(Treeprocessor):
             text = match_groups['text'].strip()
             heading.text = text + ' '
             heading.attrib.update({'id': idx})
-            anchor = f'<a href="#{idx}" tabindex="-1">{self.ANCHOR_SYMBOL}</a>'
+            anchor = self.ANCHOR_FMT.format(id=idx, symbol=self.ANCHOR_SYMBOL)
             heading.append(xml_from_string(anchor))
-            if heading.tag == 'h2':
+
+            if heading.tag in self.TOC_TAGS:
+                text = heading.attrib.get('alt') or text
                 yield idx, text
 
 

@@ -60,8 +60,8 @@ INLINE_SCRIPTS = env.get('INLINE_SCRIPTS') == 'true'
 _PROCESSORS = ['aside', 'picture', 'screencast', 'heading', 'typography', 'substitutions']
 MARKDOWN = {
     'extension_configs': {
-        'markdown.extensions.meta': {},
         'markdown.extensions.attr_list': {},
+        'markdown.extensions.meta': {},
         'markdown.extensions.abbr': {},
         'markdown.extensions.md_in_html': {},
         **{f'markup.processors.{processor}': {} for processor in _PROCESSORS},
