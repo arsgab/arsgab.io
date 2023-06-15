@@ -4,9 +4,8 @@ window.addEventListener('DOMContentLoaded', trackArticleBottomViewEvent);
 function initArticleTOC() {
 	let root = document.querySelector('article [data-prop="content"]');
 	if (!root) return;
-	let TOCHeadings = root.querySelectorAll('h2[id]');
 	let TOC = root.querySelector('[data-article-toc]');
-	if (!TOCHeadings || !TOC) return;
+	if (!TOC) return;
 
 	let TOCObserver = new IntersectionObserver(
 		([entry, ..._]) => {

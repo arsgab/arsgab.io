@@ -54,7 +54,11 @@ STATIC_PATHS = []
 STATIC_ASSETS_PATH = BASE_PATH / THEME
 STATIC_BUILD_PATH = OUTPUT_PATH / THEME_STATIC_DIR
 STATIC_URL = f'/{THEME_STATIC_DIR}/'
-INLINE_SCRIPTS = env.get('INLINE_SCRIPTS') == 'true'
+
+# Load unminified/unconcatenated JS in dev mode
+LOAD_SCRIPTS_AS_MODULES = env.get('LOAD_SCRIPTS_AS_MODULES') == 'true'
+if LOAD_SCRIPTS_AS_MODULES:
+    THEME_STATIC_PATHS += ['scripts']
 
 # Processors/renderers setup
 _PROCESSORS = ['aside', 'picture', 'screencast', 'heading', 'typography', 'substitutions']

@@ -33,6 +33,7 @@ class PageMetadata(NamedTuple):
     og_image_width: int = OG_IMAGE_WIDTH
     og_image_height: int = OG_IMAGE_HEIGHT
     published_date: str | None = None
+    max_image_preview: str = 'large'
 
     @property
     def og_image_url(self) -> str:

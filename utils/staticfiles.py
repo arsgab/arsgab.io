@@ -1,7 +1,8 @@
 import hashlib
-from collections.abc import Iterable
+from collections.abc import Iterator
 from functools import cache
 from json import dumps as json_dumps, loads as json_loads
+from pathlib import Path
 from random import choice as rand_choice
 from string import ascii_lowercase
 
@@ -21,19 +22,14 @@ def get_static_url(filename: str, randomize: bool = True) -> str:
     return f'{STATIC_URL}{filename}'
 
 
-def inline_static_assets(pattern: str) -> str:
-    contents = get_staticfiles_contents(pattern)
-    return '\n'.join(contents).strip() or ''
-
-
 def get_random_string(length: int = 8) -> str:
     return ''.join(rand_choice(ascii_lowercase) for _ in range(length))
 
 
-def get_staticfiles_contents(pattern: str) -> Iterable[str]:
-    staticfiles = STATIC_ASSETS_PATH.glob(pattern)
-    files = filter(lambda file: file.suffix in ALLOWED_INLINE_SUFFIXES, staticfiles)
-    return [file.read_text() for file in files]
+def get_staticfiles_by_pattern(pattern: str) -> Iterator[Path]:
+    for file in STATIC_ASSETS_PATH.glob(pattern):
+        if file.suffix in ALLOWED_INLINE_SUFFIXES:
+            yield file
 
 
 @cache

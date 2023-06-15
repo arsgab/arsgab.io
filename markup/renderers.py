@@ -12,7 +12,7 @@ from markup.processors.typography import typographed
 from pelicanconf import SITENAME
 from utils.datastructures import NavItem, dict_to_css_variables, filepath_to_dotnotation, remap
 from utils.schematize import generate_schema_for_article
-from utils.staticfiles import get_static_url, inline_static_assets
+from utils.staticfiles import get_static_url, get_staticfiles_by_pattern
 from utils.templating import render_obfuscated_mailto_link, render_page_metadata
 from utils.url import get_datafile_url, qualify_url
 
@@ -27,8 +27,8 @@ GLOBALS = {
     'random': randint,
     'uuid': uuid4,
     'static': get_static_url,
+    'staticfind': get_staticfiles_by_pattern,
     'api': get_datafile_url,
-    'static_inline': inline_static_assets,
     'picture': render_picture_tag,
     'pagemeta': render_page_metadata,
     'schema': generate_schema_for_article,

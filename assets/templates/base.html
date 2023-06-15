@@ -5,9 +5,8 @@
 <html lang="{{ SITE_LANG }}">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="robots" content="max-image-preview:large">
   {{ pagemeta() }}
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="preload" href="{{ style }}" as="style">
   <link rel="dns-prefetch" href="https://fonts.gstatic.com">
   <link rel="dns-prefetch" href="https://img.arsgab.io">
@@ -22,21 +21,19 @@
     document.documentElement.dataset.loaded = 'true';
     document.documentElement.dataset.statEnabled = 'umami' in window ? 'true' : 'false';
   })</script>
-{% if INLINE_SCRIPTS %}
-  <script defer data-inline>{{ static_inline('scripts/*.js') }}</script>
+{% if LOAD_SCRIPTS_AS_MODULES %}
+  <script type="module">{% for script in staticfind('scripts/*.js') %}
+    import "{{ static(script.name, randomize=False) }}";
+  {% endfor %}</script>
 {% else %}
   <script defer src="{{ static('script.js') }}" fetchpriority="high"></script>
 {% endif %}
   {%- block styles %}{% endblock styles -%}
   {%- block scripts %}{% endblock scripts -%}
-
   {%- block stats %}
-  {% if STATS_WEBSITE_ID %}
-  <script async src="{{ STATS_SCRIPTS_URL }}" data-website-id="{{ STATS_WEBSITE_ID }}"
-          data-do-not-track="true"></script>
-  {% endif %}
+  {% if STATS_WEBSITE_ID %}<script async src="{{ STATS_SCRIPTS_URL }}" data-website-id="{{ STATS_WEBSITE_ID }}"
+          data-do-not-track="true"></script>{% endif %}
   {% endblock stats -%}
-
 </head>
 <body {{ (body_attrs or ())|join(' ') }}>
 
