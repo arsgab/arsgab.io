@@ -61,7 +61,7 @@
 [data-color-theme-btn] {
   opacity: var(--site-header-text-opacity);
   display: block;
-  padding: 1rem 1rem 1rem 1.4rem;
+  padding: 1rem 1rem 1rem 1.5rem;
   cursor: pointer;
   text-decoration: underline dotted;
   text-decoration-skip-ink: all;
@@ -92,8 +92,8 @@
 
 [data-color-theme-dropdown] {
   position: absolute;
-  right: 1rem;
-  margin-top: -.75rem;
+  left: calc(var(--gutter) / -2);
+  width: 100%;
   border-radius: var(--roundness-radius);
   backdrop-filter: blur(10px) brightness(.8);
 
@@ -110,7 +110,7 @@
     display: block;
     position: relative;
     cursor: pointer;
-    padding: .5rem 1.5rem .5rem 28px;
+    padding: .3rem .25rem .3rem 2.1rem;
 
     &:hover {
       background-color: rgb(0 0 0 / .1);
@@ -121,14 +121,12 @@
     content: "";
     display: block;
     position: absolute;
-    top: 50%;
-    margin-top: -2px;
-    left: 11px;
     width: 6px;
     height: 6px;
     border-radius: 100%;
     background: var(--text-color);
-    opacity: .75;
+    top: 50%;
+    margin: -.13rem 0 0 -1.2rem;
   }
 
   & input:not(:checked) + label:active {
