@@ -25,6 +25,7 @@ env:
   STATS_WEBSITE_ID: ${{ vars.STATS_WEBSITE_ID }}
   IMGPROXY_KEY: ${{ secrets.IMGPROXY_KEY }}
   IMGPROXY_SALT: ${{ secrets.IMGPROXY_SALT }}
+  IMGPROXY_URL_SOURCE_FQDN: ${{ vars.IMGPROXY_URL_SOURCE_FQDN }}
 
 jobs:
   build-and-publish:
