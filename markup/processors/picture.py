@@ -140,6 +140,7 @@ makeExtension = PictureProcessor.register()
 # TODO: refactor this block
 def render_picture_tag(
     src: str,
+    alt: str = '',
     width: int = 0,
     height: int = 0,
     ratio: float = PICTURE_DEFAULT_RATIO,
@@ -170,5 +171,6 @@ def render_picture_tag(
         'fetch_priority': fetch_priority,
         'ratio': ratio,
         'dimensions': (width, height),
+        'alt': alt,
     }
     return render_template_partial('picture-tag', ctx)
