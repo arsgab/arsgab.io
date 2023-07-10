@@ -58,7 +58,7 @@ jobs:
         id: cached-poetry-dependencies
         uses: actions/cache@v3
         with:
-          path: .venv
+          path: '.venv'
           key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
       - name: Install Python dependencies
         if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
@@ -71,13 +71,17 @@ jobs:
         run: make lint
 
       # Setup Node env
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
       - name: Install Node
         uses: actions/setup-node@v3
         with:
           node-version: '18'
-          cache: 'npm'
+          cache: 'pnpm'
       - name: Install Node requirements
-        run: npm ci
+        run: pnpm install
 
       # Build assets
       - name: Build static assets

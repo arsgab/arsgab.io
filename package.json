@@ -20,9 +20,9 @@
     "terser": "^5.17.7"
   },
   "scripts": {
-    "build": "npm run build_styles && npm run build_scripts",
-    "build_styles": "postcss assets/styles/style.css --dir=dist/static --env=production",
-    "build_scripts": "terser --compress ecma=2016,drop_console=true --mangle toplevel --output dist/static/script.js -- assets/scripts/*.js",
+    "build:styles": "postcss assets/styles/style.css --dir dist/static --env production",
+    "build:scripts": "terser --compress ecma=2016,drop_console=true --mangle toplevel --output dist/static/script.js -- assets/scripts/*.js",
+    "build": "pnpm run build:styles && pnpm run build:scripts",
     "watch": "postcss assets/styles/style.css --dir=dist/static --env=development --watch --verbose",
     "bs": "browser-sync start --config .browsersyncrc.js"
   }

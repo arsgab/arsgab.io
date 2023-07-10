@@ -69,19 +69,19 @@ lint:
 	$(VENV)/bin/mypy markup utils
 
 static:
-	npm run build
+	pnpm run build
 	make statichash
 
 statichash:
 	$(VENV)/bin/invoke staticfiles
 
 watch:
-	npm run watch &
-	npm run bs
+	pnpm run watch &
+	pnpm run bs
 
 edit:
 	make devserver &
-	npm run bs
+	pnpm run bs
 
 video:
 	$(VENV)/bin/invoke videofiles $(SRC)
