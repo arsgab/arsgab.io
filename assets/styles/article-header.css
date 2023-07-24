@@ -81,12 +81,11 @@ article {
     line-height: 1.2;
     margin-bottom: 3rem;
     font-style: italic;
-    text-indent: -1.5rem;
-    padding-left: calc(var(--gutter) + 1.5rem);
+    text-indent: calc(var(--gutter) * -1);
 
     @media (--mobile) {
       line-height: 1;
-      text-indent: 1rem;
+      text-indent: 0;
     }
   }
 }
